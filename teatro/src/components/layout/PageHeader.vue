@@ -4,8 +4,8 @@
       <ul class="header_ul">
         <li class="header_li">
           <div class="header_interestLinks">
-            <a href="/">TODAS LAS FUNCIONES</a>
-            <a href="notFound">OFERTAS</a>
+            <a href="/">{{ $t("message.funciones") }}</a>
+            <a href="notFound">{{ $t("message.ofertas") }}</a>
           </div>
         </li>
         <li class="header_li">
