@@ -7,9 +7,6 @@ import TheFooter from '../components/layout/PageFooter.vue'
   <main>
     <TheHeader />
     <main class="mainPage">
-      <div class="mainPage_mainImage">
-        <img src="../assets/images/mainPage_mainImage.jpg" alt="" />
-      </div>
 
       <main>
         <section class="not_found">

@@ -26,11 +26,6 @@ const router = createRouter({
       component: AboutUsView
     },
     {
-      path: '/notFound',
-      name: 'notfound',
-      component: NotFoundView
-    },
-    {
       path: '/purchaseCompleted',
       name: 'purchasecompleted',
       component: PurchaseCompletedView
@@ -40,6 +35,11 @@ const router = createRouter({
       name: 'purchasepage',
       component: PurchasePageView
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notfound',
+      component: NotFoundView
+    }
   ]
 })
 
