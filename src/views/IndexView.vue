@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import TheHeader from '../components/layout/PageHeader.vue'
 import TheFooter from '../components/layout/PageFooter.vue'
+import Menu from "../components/Dashboard/MenuDashboard.vue";
 </script>
 
 <template>
-  <main>
+  <!-- <main>
     <TheHeader />
     <main class="mainPage">
       <div class="mainPage_mainImage">
@@ -26,5 +27,6 @@ import TheFooter from '../components/layout/PageFooter.vue'
       <div class="mainPage_functionsList"></div>
     </main>
     <TheFooter />
-  </main>
+  </main> -->
+  <Menu />
 </template>
