@@ -20,6 +20,12 @@ const vuetify = createVuetify({
   directives
 })
 
+const app = createApp(App)
+
+app.use(router)
+
+app.use(vuetify).mount('#app')
+
 // const messages = {
 //   en: {
 //     message: {
@@ -42,9 +48,3 @@ const vuetify = createVuetify({
 //   fallbackLocale: 'en',
 //   messages
 // })
-
-const app = createApp(App)
-
-app.use(router)
-
-app.use(vuetify).mount('#app')

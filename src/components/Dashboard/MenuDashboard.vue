@@ -41,9 +41,6 @@
 
 <style scoped>
 aside {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     background-color: var(--color-fondo-componentes);
     width: 100%;
     display: flex;
@@ -81,7 +78,8 @@ aside {
 
 @media (min-width:768px) {
     aside {
-        width: 125px;
+        position: static;
+        width: 200px;
         height: 100dvh;
         display: flex;
         flex-direction: column;
