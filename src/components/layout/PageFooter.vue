@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer_wrapper">
       <div class="footer_column">
-        <img src="../assets/images/logo_full_dark.png" alt="" class="footer_logo" />
+        <img src="../../assets/images/logo_full_dark.png" alt="" class="footer_logo" />
         <p>650 50 50 96</p>
         <p>Corre. Baja de San Pablo, 15</p>
         <p>28004 Madrid</p>
