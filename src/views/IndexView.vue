@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TheHeader from '../components/layout/PageHeader.vue'
 import TheFooter from '../components/layout/PageFooter.vue'
+import CategoriasSelector from '../components/Index/CategoriaSelector.vue';
 </script>
 
 <template>
@@ -11,20 +12,8 @@ import TheFooter from '../components/layout/PageFooter.vue'
         <img src="../assets/images/mainPage_mainImage.jpg" alt="" />
       </div>
 
-      <div class="mainPage_categorySelector">
-        <button onclick="getObrasCategoria('familiar')">
-          <p>FAMILIAR</p>
-        </button>
-        <button onclick="getObrasCategoria('comedia')">
-          <p>COMEDIA</p>
-        </button>
-        <button onclick="getObrasCategoria('musical')">
-          <p>MUSICAL</p>
-        </button>
-      </div>
-
-      <div class="mainPage_functionsList"></div>
+      <CategoriasSelector />
     </main>
     <TheFooter />
   </main>
-</template>
+</template>../components/Index/CategoriaSelector.vue
