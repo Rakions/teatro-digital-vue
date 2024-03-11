@@ -6,21 +6,29 @@ export const useObrasStore = defineStore('obras', {
     isLoading: false
   }),
   actions: {
-    async fetchObras(categoria: number) {
+    async fetchObrasCategoria(categoria: number) {
       this.isLoading = true
       const url: string = `http://localhost:6949/api/Obra/categoria=${categoria}`
       try {
-        const response = await fetch(url, {
-          method: 'GET', // o 'POST', 'PUT', 'DELETE', etc., según tu necesidad
-          headers: {
-            // tus cabeceras aquí
-            // 'Content-Type': 'application/json' // Comentado porque no-cors limita los tipos de contenido.
-          }
-        })
-        const data = await response.text()
-        console.log(data)
+        const response = await fetch(url)
+        const data = await response.json()
+        this.obras = data
       } catch (error) {
-        console.error('Error fetching obras:', error)
+        console.error('Error al cargar las obras:', error)
+        this.obras = []
+      } finally {
+        this.isLoading = false
+      }
+    },
+    async fetchObrasById(id: number) {
+      this.isLoading = true
+      const url: string = `http://localhost:6949/api/Obra/${id}`
+      try {
+        const response = await fetch(url)
+        const data = await response.json()
+        this.obras = data
+      } catch (error) {
+        console.error('Error al cargar las obras:', error)
         this.obras = []
       } finally {
         this.isLoading = false

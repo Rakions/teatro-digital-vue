@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useObrasStore } from '../../stores/obrasStore';
 
 const obrasStore = useObrasStore();
 
-function getObrasCategoria(categoria: number) {
-    obrasStore.fetchObras(categoria);
+const obras: any = computed(() => obrasStore.obras); // Usa computed para reaccionar a los cambios.
+
+async function getObrasCategoria(categoria: number) {
+    await obrasStore.fetchObrasCategoria(categoria);
 }
 </script>
+
 
 <template>
     <div class="mainPage_categorySelector">
@@ -20,5 +24,17 @@ function getObrasCategoria(categoria: number) {
             <p>MUSICAL</p>
         </button>
     </div>
-    <div class="mainPage_functionsList"></div>
+    <div class="mainPage_functionsList">
+        <a :href="`/asientos?obraID=${obra.obraID}`" v-for="obra in obras" :key="obra.obraID" class="obra-item">
+            <div class="function">
+                <img src="#" alt="">
+                <div>
+                    <h2>{{ obra.titulo }}</h2>
+                    <p>Director: {{ obra.director }}</p>
+                </div>
+                <input type="hidden" id="obra.obraID" value="{{ obra.obraID }}">
+            </div>
+
+        </a>
+    </div>
 </template>
