@@ -10,7 +10,7 @@
         </li>
         <li class="header_li">
           <a href="/">
-            <svg width="300" height="100" xmlns="http://www.w3.org/2000/svg">
+            <svg class="header_logo" xmlns="http://www.w3.org/2000/svg">
               <g transform="translate(150, 50)">
                 <text x="0" y="-20" font-family="Lato, sans-serif" font-size="24" fill="#cda881"
                   text-anchor="middle">TEATRO
@@ -48,7 +48,6 @@
 text#theatre {
   opacity: 0;
   transition: opacity 0.5s, transform 0.5s;
-  transform: translateY(-10px);
 }
 
 text {
