@@ -1,7 +1,64 @@
 <script setup lang="ts">
-import TheHeader from '../components/layout/PageHeader.vue'
-import TheFooter from '../components/layout/PageFooter.vue'
+import { onMounted, ref } from 'vue';
+import TheHeader from '../components/layout/PageHeader.vue';
+import TheFooter from '../components/layout/PageFooter.vue';
 import CategoriasSelector from '../components/Index/CategoriaSelector.vue';
+
+interface Star {
+  x: number;
+  y: number;
+  size: number;
+  speed: number;
+}
+
+const canvasRef = ref<HTMLCanvasElement | null>(null);
+
+onMounted(() => {
+  const canvas = canvasRef.value;
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const backgroundImage = new Image();
+  backgroundImage.src = '../assets/images/mainPage_mainImage.jpg';
+
+  const stars: Star[] = [];
+  const numStars: number = 100;
+
+  for (let i = 0; i < numStars; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2,
+      speed: Math.random() * 0.5 + 0.2
+    });
+  }
+
+  backgroundImage.onload = () => {
+    drawStars();
+  };
+
+  function drawStars(): void {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+    stars.forEach(star => {
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      star.y += star.speed;
+      if (star.y > canvas.height) {
+        star.y = 0;
+        star.x = Math.random() * canvas.width;
+      }
+    });
+
+    requestAnimationFrame(drawStars);
+  }
+});
 </script>
 
 <template>
@@ -9,11 +66,10 @@ import CategoriasSelector from '../components/Index/CategoriaSelector.vue';
     <TheHeader />
     <main class="mainPage">
       <div class="mainPage_mainImage">
-        <img src="../assets/images/mainPage_mainImage.jpg" alt="" />
+        <canvas ref="canvasRef" width="800" height="600"></canvas>
       </div>
-
       <CategoriasSelector />
     </main>
     <TheFooter />
   </main>
-</template>../components/Index/CategoriaSelector.vue
+</template>
