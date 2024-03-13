@@ -1,12 +1,36 @@
-<script lang="ts">
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useObrasStore } from '../stores/obrasStore';
+import TheHeader from '../components/layout/PageHeader.vue';
+
+const obrasStore = useObrasStore();
+const urlParams = new URLSearchParams(window.location.search);
+const obraID = urlParams.getAll('obraID')[0];
+const obra: any = computed(() => obrasStore.obras);
+
+async function getObra() {
+  await obrasStore.fetchObrasById(obraID);
+}
+
+getObra();
 </script>
 
 <template>
+  <TheHeader />
   <div class="seats">
-    <a href="mainPage.html" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+    <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
 
     <div class="seats_info">
-      <div class="seats_functionInfo"></div>
+      <div class="seats_functionInfo">
+        <div class="function">
+          <img src="#" alt="" />
+          <div>
+            <h2>{{ obra.titulo }}</h2>
+            <p>{{ obra.descripcion }}</p>
+          </div>
+          <input type="hidden" id="id_obra" value="${obra[0].id}" />
+        </div>`
+      </div>
     </div>
 
     <div class="seats_all_seats">
@@ -26,7 +50,7 @@
       <ul class="selected_seats_list"></ul>
       <div class="selected_seats_total">
         <h2>TOTAL:</h2>
-        <button><a href="purchasePage.html">PAGAR</a></button>
+        <button><a href="">PAGAR</a></button>
       </div>
     </div>
   </div>
