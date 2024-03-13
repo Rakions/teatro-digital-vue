@@ -4,11 +4,18 @@ import { useObrasStore } from '../../stores/obrasStore';
 
 const obrasStore = useObrasStore();
 
-const obras: any = computed(() => obrasStore.obras); // Usa computed para reaccionar a los cambios.
+const obras: any = computed(() => obrasStore.obras);
 
 async function getObrasCategoria(categoria: number) {
     await obrasStore.fetchObrasCategoria(categoria);
 }
+
+async function getAllObras() {
+    await obrasStore.fetchAllObras()
+}
+
+getAllObras();
+
 </script>
 
 
@@ -34,7 +41,6 @@ async function getObrasCategoria(categoria: number) {
                 </div>
                 <input type="hidden" id="obra.obraID" value="{{ obra.obraID }}">
             </div>
-
         </a>
     </div>
 </template>
