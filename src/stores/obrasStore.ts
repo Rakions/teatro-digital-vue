@@ -20,9 +20,23 @@ export const useObrasStore = defineStore('obras', {
         this.isLoading = false
       }
     },
-    async fetchObrasById(id: number) {
+    async fetchObrasById(id: string) {
       this.isLoading = true
       const url: string = `http://localhost:6949/api/Obra/${id}`
+      try {
+        const response = await fetch(url)
+        const data = await response.json()
+        this.obras = data
+      } catch (error) {
+        console.error('Error al cargar las obras:', error)
+        this.obras = []
+      } finally {
+        this.isLoading = false
+      }
+    },
+    async fetchAllObras() {
+      this.isLoading = true
+      const url: string = `http://localhost:6949/api/Obra/`
       try {
         const response = await fetch(url)
         const data = await response.json()
