@@ -12,36 +12,35 @@ interface Star {
 }
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
+let ctx: CanvasRenderingContext2D | null = null;
+
+const stars: Star[] = [];
+const numStars: number = 100;
 
 onMounted(() => {
-  const canvas = canvasRef.value;
-  if (!canvas) return;
+  if (canvasRef.value) {
+    const canvas = canvasRef.value;
+    ctx = canvas.getContext('2d');
 
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 0.5 + 0.2
+      });
+    }
 
-  const backgroundImage = new Image();
-  backgroundImage.src = '../assets/images/mainPage_mainImage.jpg';
-
-  const stars: Star[] = [];
-  const numStars: number = 100;
-
-  for (let i = 0; i < numStars; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 2,
-      speed: Math.random() * 0.5 + 0.2
-    });
-  }
-
-  backgroundImage.onload = () => {
     drawStars();
-  };
+  }
+});
 
-  function drawStars(): void {
+function drawStars(): void {
+
+  if (ctx && canvasRef.value) {
+
+    const canvas = canvasRef.value;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
     stars.forEach(star => {
       ctx.fillStyle = 'white';
@@ -58,7 +57,7 @@ onMounted(() => {
 
     requestAnimationFrame(drawStars);
   }
-});
+}
 </script>
 
 <template>
@@ -66,10 +65,17 @@ onMounted(() => {
     <TheHeader />
     <main class="mainPage">
       <div class="mainPage_mainImage">
-        <canvas ref="canvasRef" width="800" height="600"></canvas>
+        <canvas class="canvasRef" ref="canvasRef" width="800" height="600"></canvas>
       </div>
       <CategoriasSelector />
     </main>
     <TheFooter />
   </main>
 </template>
+
+<style scoped>
+.canvasRef {
+  background-image: url("../assets/images/mainPage_mainImage.jpg");
+  background-size: cover;
+}
+</style>
