@@ -3,19 +3,30 @@ import { defineStore } from 'pinia'
 export const useObrasStore = defineStore('obras', {
   state: () => ({
     obras: [],
-    isLoading: false
+    isLoading: false,
+    cargaExitosa: true
   }),
   actions: {
     async fetchObrasCategoria(categoria: number) {
       this.isLoading = true
       const url: string = `http://localhost:6949/api/Obra/categoria=${categoria}`
       try {
-        const response = await fetch(url)
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        })
+        if (response.status === 400) {
+          this.cargaExitosa = false
+          throw new Error('Bad request')
+        }
         const data = await response.json()
         this.obras = data
+        this.cargaExitosa = true
       } catch (error) {
         console.error('Error al cargar las obras:', error)
-        this.obras = []
+        this.cargaExitosa = false
       } finally {
         this.isLoading = false
       }
@@ -24,12 +35,22 @@ export const useObrasStore = defineStore('obras', {
       this.isLoading = true
       const url: string = `http://localhost:6949/api/Obra/${id}`
       try {
-        const response = await fetch(url)
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        })
+        if (response.status === 400) {
+          this.cargaExitosa = false
+          throw new Error('Bad request')
+        }
         const data = await response.json()
         this.obras = data
+        this.cargaExitosa = true
       } catch (error) {
         console.error('Error al cargar las obras:', error)
-        this.obras = []
+        this.cargaExitosa = false
       } finally {
         this.isLoading = false
       }
@@ -38,12 +59,22 @@ export const useObrasStore = defineStore('obras', {
       this.isLoading = true
       const url: string = `http://api.teatrogaleguista.work.gd/api/Obra`
       try {
-        const response = await fetch(url)
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Cache-Control': 'no-cache'
+          }
+        })
+        if (response.status === 400) {
+          this.cargaExitosa = false
+          throw new Error('Bad request')
+        }
         const data = await response.json()
         this.obras = data
+        this.cargaExitosa = true
       } catch (error) {
         console.error('Error al cargar las obras:', error)
-        this.obras = []
+        this.cargaExitosa = false
       } finally {
         this.isLoading = false
       }
