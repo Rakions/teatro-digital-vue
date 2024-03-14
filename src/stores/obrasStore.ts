@@ -36,7 +36,7 @@ export const useObrasStore = defineStore('obras', {
     },
     async fetchAllObras() {
       this.isLoading = true
-      const url: string = `http://localhost:6949/api/Obra/`
+      const url: string = `http://api.teatrogaleguista.work.gd/api/Obra`
       try {
         const response = await fetch(url)
         const data = await response.json()
