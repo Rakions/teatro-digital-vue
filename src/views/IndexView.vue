@@ -12,7 +12,6 @@ import CanvasComp from '@/components/Index/CanvasComp.vue';
     <TheHeader />
     <main class="mainPage">
       <div class="mainPage_mainImage">
-        <h1 class="mainPage_mainImage_title">Bienvenido a la tienda</h1>
         <CanvasComp />
       </div>
       <CategoriasSelector />
