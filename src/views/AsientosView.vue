@@ -1,58 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useObrasStore } from '../stores/obrasStore';
 import TheHeader from '../components/layout/PageHeader.vue';
+import Asientos from "../components/seats/AllSeats.vue"
+import FunctionInfo from '@/components/seats/FunctionInfo.vue';
 
-const obrasStore = useObrasStore();
-const urlParams = new URLSearchParams(window.location.search);
-const obraID = urlParams.getAll('obraID')[0];
-const obra: any = computed(() => obrasStore.obras);
 
-async function getObra() {
-  await obrasStore.fetchObrasById(obraID);
-}
-
-getObra();
 </script>
 
 <template>
   <TheHeader />
   <div class="seats">
     <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
-
-    <div class="seats_info">
-      <div class="seats_functionInfo">
-        <div class="function">
-          <img src="#" alt="" />
-          <div>
-            <h2>{{ obra.titulo }}</h2>
-            <p>{{ obra.descripcion }}</p>
-          </div>
-          <input type="hidden" id="id_obra" value="${obra[0].id}" />
-        </div>`
-      </div>
-    </div>
-
-    <div class="seats_all_seats">
-      <div class="seats_all_seats_image"></div>
-
-      <div class="seats_all_seats_info">
-        <div style="background-color: var(--color-principal)"></div>
-        <p>Libre</p>
-        <div style="background-color: #ff9090"></div>
-        <p>Ocupado</p>
-        <div style="background-color: #62ae00"></div>
-        <p>Seleccionado</p>
-      </div>
-    </div>
-    <div class="selected_seats">
-      <h2>ASIENTOS SELECCIONADOS</h2>
-      <ul class="selected_seats_list"></ul>
-      <div class="selected_seats_total">
-        <h2>TOTAL:</h2>
-        <button><a href="">PAGAR</a></button>
-      </div>
-    </div>
+    <FunctionInfo />
+    <Asientos />
   </div>
 </template>
 
@@ -69,6 +29,7 @@ getObra();
 }
 
 .seats .seats_goBack {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -77,160 +38,9 @@ getObra();
   font-weight: 700;
 }
 
-.seats .seats_info {
-  gap: 2rem;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
 
-.seats .seats_info .seats_functionInfo {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 
-.seats .function {
-  max-width: 336px;
-  min-width: 250px;
-  width: 100%;
-}
 
-.seats .function img {
-  width: 100%;
-  height: 309px;
-  object-fit: cover;
-  border-radius: 15px;
-}
-
-.seats .seats_list {
-  width: 100%;
-  max-width: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.seats .seats_list ul {
-  width: 100%;
-  background-color: var(--color-fondo-componentes);
-  padding: 1rem;
-  border-radius: 15px;
-}
-
-.seats .seats_list ul li {
-  display: flex;
-  justify-content: space-between;
-  height: 30px;
-}
-
-.seats .seats_list ul li p {
-  font-size: 16px;
-}
-
-.seats .seats_list ul li input[type=checkbox] {
-  border-radius: 2px;
-  height: 18px;
-  width: 18px;
-  accent-color: var(--color-principal);
-}
-
-.seats .seats_all_seats_image {
-  width: 336px;
-  height: 305px;
-  background-color: var(--color-fondo-componentes);
-  padding: 1rem;
-  border-radius: 15px;
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  gap: 3px;
-}
-
-.seats .seats_all_seats_image .seat {
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-principal);
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.seats .seats_all_seats_image .seat:hover {
-  background-color: #62ae00;
-}
-
-.seats .seats_all_seats_info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  margin-top: 5px;
-}
-
-.seats .seats_all_seats_info div {
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
-}
-
-.seats .selected_seats {
-  background-color: var(--color-fondo-componentes);
-  padding: 1rem;
-  border-radius: 15px;
-}
-
-.seats .selected_seats h2 {
-  text-decoration: underline;
-}
-
-.seats .selected_seats .selected_seats_list {
-  width: 100%;
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
-  gap: 10px;
-}
-
-.seats .selected_seats .selected_seats_list li {
-  width: 100%;
-  justify-content: space-between;
-  display: inline-flex;
-}
-
-.seats .selected_seats .selected_seats_list li div:nth-child(2) {
-  display: flex;
-  gap: 10px;
-}
-
-.seats .selected_seats .selected_seats_list li button {
-  background: var(--color-principal);
-  padding: 2px 5px;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
-}
-
-.seats .selected_seats .selected_seats_total {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.seats .selected_seats .selected_seats_total button {
-  background-color: var(--color-principal);
-  color: white;
-  border: none;
-  padding: 7px 15px;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-}
 
 @media (min-width: 768px) {
   .function {
@@ -245,22 +55,8 @@ getObra();
   }
 
   .seats .seats_goBack {
+    display: block;
     margin-left: 5rem;
-  }
-
-  .seats_all_seats {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-  }
-
-  .seats_all_seats .seats_all_seats_image {
-    max-width: 740px;
-    width: 100%;
-    height: 500px;
   }
 }
 </style>
