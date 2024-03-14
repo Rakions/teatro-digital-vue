@@ -22,8 +22,13 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{env.AWS_REGION}}
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.11.0'
+
       - name: Deploy to AWS S3
         run: |
           npm i
           npm run build
-          aws s3 cp ./dist/index.html s3://teatrogaleguistas3
+          aws s3 sync ./dist/ s3://teatrogaleguistas3 --delete
