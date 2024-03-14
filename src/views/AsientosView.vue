@@ -1,9 +1,36 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useObrasStore } from '../stores/obrasStore';
+import TheHeader from '../components/layout/PageHeader.vue';
+
+const obrasStore = useObrasStore();
+const urlParams = new URLSearchParams(window.location.search);
+const obraID = urlParams.getAll('obraID')[0];
+const obra: any = computed(() => obrasStore.obras);
+
+async function getObra() {
+  await obrasStore.fetchObrasById(obraID);
+}
+
+getObra();
+</script>
+
 <template>
+  <TheHeader />
   <div class="seats">
-    <a href="mainPage.html" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+    <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
 
     <div class="seats_info">
-      <div class="seats_functionInfo"></div>
+      <div class="seats_functionInfo">
+        <div class="function">
+          <img src="#" alt="" />
+          <div>
+            <h2>{{ obra.titulo }}</h2>
+            <p>{{ obra.descripcion }}</p>
+          </div>
+          <input type="hidden" id="id_obra" value="${obra[0].id}" />
+        </div>`
+      </div>
     </div>
 
     <div class="seats_all_seats">
@@ -23,158 +50,12 @@
       <ul class="selected_seats_list"></ul>
       <div class="selected_seats_total">
         <h2>TOTAL:</h2>
-        <button><a href="purchasePage.html">PAGAR</a></button>
+        <button><a href="">PAGAR</a></button>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-interface Asiento {
-  numero: number;
-  precio: number;
-  ocupado: boolean;
-}
-
-export default defineComponent({
-  name: 'AsientosComponent',
-  data() {
-    return {
-      id: '',
-      totalPrecioAsientos: 0,
-      asientosSeleccionados: [] as number[],
-    };
-  },
-  methods: {
-    async getObraById(): Promise<any> {
-      this.id = localStorage.getItem("id") || "";
-      const requestOptions: RequestInit = {
-        method: "GET",
-        mode: "no-cors",
-        redirect: "follow",
-      };
-
-      const url: string = `http://localhost:3000/obras/${this.id}`;
-      const response: Response = await fetch(url, requestOptions);
-      const result = await response.json();
-      return result;
-    },
-
-    async getAsientoPorId(ID_asiento: number): Promise<Asiento> {
-      this.id = localStorage.getItem("id") || "";
-      const bodyData = {
-        id_obra: this.id,
-        id_asiento: ID_asiento,
-      };
-      const requestOptions: RequestInit = {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bodyData),
-        redirect: "follow",
-      };
-
-      const url: string = `http://localhost:3000/asientos`;
-      const response: Response = await fetch(url, requestOptions);
-      const result = await response.json();
-      return result;
-    },
-
-    async cargarAsientos(): Promise<void> {
-      // El código de cargarAsientos va aquí.
-      const obra = await this.getObraById();
-      const asientos: Asiento[] = obra[0].asientos;
-
-      const functionInfo: HTMLElement = document.querySelector(".seats_functionInfo")!;
-      functionInfo.innerHTML = "";
-      functionInfo.innerHTML += `
-      <div class="function">
-        <img src="${obra[0].image}" alt="" />
-        <div>
-          <h2>${obra[0].nombre}</h2>
-          <p>${obra[0].descripcion}</p>
-        </div>
-        <input type="hidden" id="id_obra" value="${obra[0].id}"/>
-      </div>`;
-
-      const asientosHTML: HTMLElement = document.querySelector(".seats_all_seats_image")!;
-
-      asientos.map((asiento) => {
-        asientosHTML.innerHTML += `<button class="seat" id="${asiento.numero}" value='${asiento.precio}'></button>`;
-      });
-
-      const precioTotal: HTMLElement = document.querySelector(".selected_seats_total > h2")!;
-
-      const botones: NodeListOf<HTMLButtonElement> = asientosHTML.querySelectorAll(".seat");
-      botones.forEach((boton) => {
-        const numeroAsiento: number = parseInt(boton.id, 10);
-        const asientoCorrespondiente = asientos.find((asiento) => asiento.numero === numeroAsiento);
-
-        if (asientoCorrespondiente && asientoCorrespondiente.ocupado) {
-          boton.style.backgroundColor = "red";
-          boton.disabled = true;
-        } else {
-          boton.addEventListener("click", () => {
-            const numeroAsiento = parseInt(boton.id, 10);
-
-            if (!this.asientosSeleccionados.includes(numeroAsiento)) {
-              this.asientosSeleccionados.push(numeroAsiento);
-              boton.style.backgroundColor = "#62ae00";
-              this.totalPrecioAsientos += asientoCorrespondiente!.precio;
-            } else {
-              this.asientosSeleccionados.splice(this.asientosSeleccionados.indexOf(numeroAsiento), 1);
-              boton.style.backgroundColor = "var(--color-principal)";
-              this.totalPrecioAsientos -= asientoCorrespondiente!.precio;
-            }
-            this.actualizarLista();
-            precioTotal.innerHTML = "Total: " + this.totalPrecioAsientos + "€";
-          });
-        }
-      });
-    },
-
-    async actualizarLista(): Promise<void> {
-      const listaAsientos: HTMLElement = document.querySelector(".selected_seats_list")!;
-      listaAsientos.innerHTML = "";
-
-      for (const asiento of this.asientosSeleccionados) {
-        const infoAsiento = await this.getAsientoPorId(asiento);
-        listaAsientos.innerHTML += `
-            <li class="selected_seats_item">
-              <div>Asiento: ${infoAsiento.numero}</div>
-              <div>
-                <p>${infoAsiento.precio + "€"}</p>
-                <button onclick="this.eliminarAsiento(${infoAsiento.numero}, ${infoAsiento.precio})">X</button>
-              </div>
-            </li>
-          `;
-      }
-    },
-
-    eliminarAsiento(id_asiento: number, precio_asiento: number): void {
-      const precioTotal: HTMLElement = document.querySelector(".selected_seats_total > h2")!;
-
-      this.asientosSeleccionados = this.asientosSeleccionados.filter((asiento) => asiento !== id_asiento);
-
-      const boton: HTMLButtonElement | null = document.getElementById(id_asiento.toString()) as HTMLButtonElement;
-      if (boton) {
-        boton.style.backgroundColor = "var(--color-principal)";
-        this.totalPrecioAsientos -= precio_asiento;
-        precioTotal.innerHTML = "Total: " + this.totalPrecioAsientos + "€";
-      }
-
-      this.actualizarLista();
-    },
-  },
-  mounted() {
-    this.cargarAsientos();
-  }
-});
-</script>
 
 <style scoped>
 .seats {
