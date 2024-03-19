@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useUserStore } from '@/stores/userStore';
+const userStore = useUserStore();
 
+interface RegisterParams {
+    nombre: string,
+    apellido: string,
+    email: string,
+    telefono: string,
+    contrasena: string,
+    rol: 0
+}
 
 var errors = ref<string | null>(null);
 
@@ -26,6 +36,17 @@ function handleSubmit() {
     if (passwordInput.value.length < 12 || password2Input.value.length < 12) {
         errors.value = "La contraseña tiene que tener un mínimo de 12 caracteres"
     }
+
+    const params: RegisterParams = {
+        nombre: nameInput.value,
+        apellido: surnameInput.value,
+        email: emailInput.value,
+        telefono: "123",
+        contrasena: passwordInput.value,
+        rol: 0
+    }
+
+    userStore.registerUser(params);
 }
 
 function validarCamposNoVacios(elementos: HTMLInputElement[]): boolean {
