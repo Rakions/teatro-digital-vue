@@ -46,7 +46,7 @@ getAllObras();
     </div>
     <span v-if="!cargaExitosa" class="error_message">No se han podido cargar las obras</span>
     <div class="mainPage_functionsList">
-        <a :href="`/asientos?obraID=${obra.obraID}`" v-for="obra in obras" :key="obra.obraID" class="obra-item">
+        <a :href="`/obra?obraID=${obra.obraID}`" v-for="obra in obras" :key="obra.obraID" class="obra-item">
             <div class="function">
                 <img src="#" alt="">
                 <div>
