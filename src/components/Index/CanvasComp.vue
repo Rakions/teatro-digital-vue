@@ -1,12 +1,6 @@
 <script setup lang="ts">
+import type { Star } from '@/utils/interfaces';
 import { onMounted, ref } from 'vue';
-
-interface Star {
-    x: number;
-    y: number;
-    size: number;
-    speed: number;
-}
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 let ctx: CanvasRenderingContext2D | null = null;

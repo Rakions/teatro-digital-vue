@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useObrasStore } from '../../stores/obrasStore';
-import FunctionList from './FunctionList.vue';
 
 const obrasStore = useObrasStore();
 const urlParams = new URLSearchParams(window.location.search);
