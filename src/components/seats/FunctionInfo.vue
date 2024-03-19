@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useObrasStore } from '../../stores/obrasStore';
+import FunctionList from './FunctionList.vue';
 
 const obrasStore = useObrasStore();
 const urlParams = new URLSearchParams(window.location.search);
 const obraID = urlParams.getAll('obraID')[0];
-const obra: any = computed(() => obrasStore.obras);
+const obra: any = computed(() => obrasStore.obras)
 
 async function getObra() {
     await obrasStore.fetchObrasById(obraID);
 }
 
-getObra();
+getObra()
 </script>
 
 <template>
@@ -21,10 +22,11 @@ getObra();
             <img src="#" alt="" />
             <div>
                 <h2>{{ obra.titulo }}</h2>
-                <p>{{ obra.descripcion }}</p>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, possimus?</p>
             </div>
             <input type="hidden" id="id_obra" value="${obra[0].id}" />
         </div>
+        <FunctionList :id="obra.obraID" />
     </div>
 
 </template>

@@ -1,10 +1,12 @@
+import type { RequestOptions } from 'https'
 import { defineStore } from 'pinia'
 
 export const useObrasStore = defineStore('obras', {
   state: () => ({
     obras: [],
     isLoading: false,
-    cargaExitosa: true
+    cargaExitosa: true,
+    funciones: [{}]
   }),
   actions: {
     async fetchObrasCategoria(categoria: number) {
@@ -78,6 +80,19 @@ export const useObrasStore = defineStore('obras', {
       } finally {
         this.isLoading = false
       }
+    },
+    async fetchFunciones(id: number) {
+      const requestOptions: RequestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+
+      fetch(`http://localhost:6949/api/Funcion/${id}`, requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          this.funciones = result
+        })
+        .catch((error) => console.error(error))
     }
   }
 })
