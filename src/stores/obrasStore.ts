@@ -1,4 +1,4 @@
-import type { RequestOptions } from 'https'
+import type { Funcion } from '@/utils/interfaces'
 import { defineStore } from 'pinia'
 
 export const useObrasStore = defineStore('obras', {
@@ -6,93 +6,46 @@ export const useObrasStore = defineStore('obras', {
     obras: [],
     isLoading: false,
     cargaExitosa: true,
-    funciones: [{}]
+    funciones: [] as Funcion[],
+    asientos: []
   }),
   actions: {
-    async fetchObrasCategoria(categoria: number) {
+    async fetchUrl(url: string) {
       this.isLoading = true
-      const url: string = `http://localhost:6949/api/Obra/categoria=${categoria}`
       try {
         const response = await fetch(url, {
           method: 'GET',
-          headers: {
-            'Cache-Control': 'no-cache'
-          }
+          headers: { 'Cache-Control': 'no-cache' }
         })
-        if (response.status === 400) {
+        if (!response.ok) {
           this.cargaExitosa = false
           throw new Error('Bad request')
         }
         const data = await response.json()
-        this.obras = data
         this.cargaExitosa = true
+        return data
       } catch (error) {
-        console.error('Error al cargar las obras:', error)
+        console.error('Error al cargar:', error)
         this.cargaExitosa = false
       } finally {
         this.isLoading = false
       }
     },
-    async fetchObrasById(id: string) {
-      this.isLoading = true
-      const url: string = `http://localhost:6949/api/Obra/${id}`
-      try {
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Cache-Control': 'no-cache'
-          }
-        })
-        if (response.status === 400) {
-          this.cargaExitosa = false
-          throw new Error('Bad request')
-        }
-        const data = await response.json()
-        this.obras = data
-        this.cargaExitosa = true
-      } catch (error) {
-        console.error('Error al cargar las obras:', error)
-        this.cargaExitosa = false
-      } finally {
-        this.isLoading = false
-      }
+    async fetchObrasCategoria(categoria: number) {
+      const data = await this.fetchUrl(`http://localhost:6949/api/Obra/categoria/${categoria}`)
+      if (data) this.obras = data
+    },
+    async fetchObrasById(id: number) {
+      const data = await this.fetchUrl(`http://localhost:6949/api/Obra/${id}`)
+      if (data) this.obras = data
     },
     async fetchAllObras() {
-      this.isLoading = true
-      const url: string = `http://api.teatrogaleguista.work.gd/api/Obra`
-      try {
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Cache-Control': 'no-cache'
-          }
-        })
-        if (response.status === 400) {
-          this.cargaExitosa = false
-          throw new Error('Bad request')
-        }
-        const data = await response.json()
-        this.obras = data
-        this.cargaExitosa = true
-      } catch (error) {
-        console.error('Error al cargar las obras:', error)
-        this.cargaExitosa = false
-      } finally {
-        this.isLoading = false
-      }
+      const data = await this.fetchUrl(`http://api.teatrogaleguista.work.gd/api/Obra`)
+      if (data) this.obras = data
     },
-    async fetchFunciones(id: number) {
-      const requestOptions: RequestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      }
-
-      fetch(`http://localhost:6949/api/Funcion/${id}`, requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          this.funciones = result
-        })
-        .catch((error) => console.error(error))
+    async fetchFunciones() {
+      const data = await this.fetchUrl(`http://localhost:6949/api/Funcion`)
+      if (data) this.funciones = data
     }
   }
 })
