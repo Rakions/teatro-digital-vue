@@ -6,6 +6,7 @@ import AboutUsView from '../views/AboutUsView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import PurchaseCompletedView from '../views/PurchaseCompletedView.vue'
 import PurchasePageView from '../views/PurchasePageView.vue'
+import DashboardView from '../views/dashboard/DashboardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/purchasePage',
       name: 'purchasepage',
       component: PurchasePageView
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: DashboardView
     },
     {
       path: '/:pathMatch(.*)*',
