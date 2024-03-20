@@ -40,10 +40,10 @@ function drawStars(): void {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         stars.forEach(star => {
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-            ctx.fill();
+            //ctx.fillStyle = 'white';
+            //ctx.beginPath();
+            //ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            //ctx.fill();
 
             star.y += star.speed;
             if (star.y > canvas.height) {
