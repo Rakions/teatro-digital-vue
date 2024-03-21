@@ -21,7 +21,7 @@ getObra()
             <img src="#" alt="" />
             <div>
                 <h2>{{ obra.titulo }}</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, possimus?</p>
+                <p>{{ obra.descripcion }}</p>
             </div>
             <input type="hidden" id="id_obra" value="${obra[0].id}" />
         </div>
@@ -65,6 +65,5 @@ getObra()
     .function {
         width: 336px;
     }
-
 }
 </style>

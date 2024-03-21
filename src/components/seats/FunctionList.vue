@@ -30,7 +30,7 @@ watch(() => props.id, async (newId) => {
 
 <style scoped>
 .function_list {
-    width: 100%;
+    width: 70%;
 }
 
 .function_list ul {

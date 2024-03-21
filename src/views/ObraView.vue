@@ -45,7 +45,7 @@ import FunctionList from '@/components/seats/FunctionList.vue';
   }
 
   .functionInfo {
-    max-width: 600px;
+    max-width: 700px;
   }
 
   .seats {
