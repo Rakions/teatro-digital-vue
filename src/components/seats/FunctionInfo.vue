@@ -4,7 +4,7 @@ import { useObrasStore } from '../../stores/obrasStore';
 
 const obrasStore = useObrasStore();
 const urlParams = new URLSearchParams(window.location.search);
-const obraID = urlParams.getAll('obraID')[0];
+const obraID: number = urlParams.getAll('obraID')[0] as unknown as number;
 const obra: any = computed(() => obrasStore.obras)
 
 async function getObra() {
@@ -19,7 +19,7 @@ getObra()
     <div class="seats_functionInfo">
         <div class="function">
             <img src="#" alt="" />
-            <div>
+            <div class="function_title_desc">
                 <h2>{{ obra.titulo }}</h2>
                 <p>{{ obra.descripcion }}</p>
             </div>
@@ -58,6 +58,12 @@ getObra()
     height: 309px;
     object-fit: cover;
     border-radius: 15px;
+}
+
+.function_title_desc {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 

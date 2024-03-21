@@ -2,14 +2,17 @@
 import { useObrasStore } from '@/stores/obrasStore';
 import type { Funcion } from '@/utils/interfaces';
 import { computed, watch } from 'vue';
+import { formatDateTime } from '@/utils/utils';
 
 const obrasStore = useObrasStore();
 const props = defineProps<{ id: number }>();
 const horas = computed(() => obrasStore.funciones as Funcion[]);
+const urlParams = new URLSearchParams(window.location.search);
+const obraID: number = urlParams.getAll('obraID')[0] as unknown as number;
 
 watch(() => props.id, async (newId) => {
     if (newId !== undefined && newId !== null) {
-        await obrasStore.fetchFunciones();
+        await obrasStore.fetchFunciones(obraID);
     }
 }, { immediate: true });
 </script>
@@ -18,7 +21,7 @@ watch(() => props.id, async (newId) => {
     <div class="function_list">
         <ul>
             <li v-for="hora in horas" :key="hora.funcionID">
-                <span>{{ hora.fechaHora }}</span>
+                <span>{{ formatDateTime(hora.fechaHora) }}</span>
                 <button type="button">
                     Reservar
                 </button>

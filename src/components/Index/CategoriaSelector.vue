@@ -50,7 +50,7 @@ getAllObras();
             <div class="function">
                 <img src="#" alt="">
                 <div>
-                    <h2>{{ obra.titulo }}</h2>
+                    <h3>{{ obra.titulo }}</h3>
                     <p>Director: {{ obra.director }}</p>
                 </div>
                 <input type="hidden" id="obra.obraID" value="{{ obra.obraID }}">

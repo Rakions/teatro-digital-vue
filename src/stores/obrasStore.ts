@@ -40,11 +40,11 @@ export const useObrasStore = defineStore('obras', {
       if (data) this.obras = data
     },
     async fetchAllObras() {
-      const data = await this.fetchUrl(`http://api.teatrogaleguista.work.gd/api/Obra`)
+      const data = await this.fetchUrl(`http://localhost:6949/api/Obra`)
       if (data) this.obras = data
     },
-    async fetchFunciones() {
-      const data = await this.fetchUrl(`http://localhost:6949/api/Funcion`)
+    async fetchFunciones(obraId: number) {
+      const data = await this.fetchUrl(`http://localhost:6949/api/Funcion/obra/` + obraId)
       if (data) this.funciones = data
     }
   }
