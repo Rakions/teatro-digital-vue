@@ -4,7 +4,6 @@ import TheHeader from '../components/layout/PageHeader.vue';
 import FunctionInfo from '@/components/seats/FunctionInfo.vue';
 import FunctionList from '@/components/seats/FunctionList.vue';
 
-
 </script>
 
 <template>

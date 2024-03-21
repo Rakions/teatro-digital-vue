@@ -3,18 +3,27 @@ import { useObrasStore } from '@/stores/obrasStore';
 import type { Funcion } from '@/utils/interfaces';
 import { computed, watch } from 'vue';
 import { formatDateTime } from '@/utils/utils';
+import { useRouter, useRoute } from 'vue-router'
 
 const obrasStore = useObrasStore();
 const props = defineProps<{ id: number }>();
 const horas = computed(() => obrasStore.funciones as Funcion[]);
 const urlParams = new URLSearchParams(window.location.search);
 const obraID: number = urlParams.getAll('obraID')[0] as unknown as number;
+const router = useRouter();
 
 watch(() => props.id, async (newId) => {
     if (newId !== undefined && newId !== null) {
         await obrasStore.fetchFunciones(obraID);
     }
 }, { immediate: true });
+
+
+function selectFuncion(funcionID: number) {
+    localStorage.setItem("funcion", funcionID as unknown as string)
+    router.push('/asientos')
+}
+
 </script>
 
 <template>
@@ -22,7 +31,7 @@ watch(() => props.id, async (newId) => {
         <ul>
             <li v-for="hora in horas" :key="hora.funcionID">
                 <span>{{ formatDateTime(hora.fechaHora) }}</span>
-                <button type="button">
+                <button type="button" @click="selectFuncion(hora.funcionID)">
                     Reservar
                 </button>
             </li>
