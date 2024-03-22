@@ -1,9 +1,3 @@
-<template>
-    <svg class="grid-item" width="50" height="50" @click="handleClick">
-        <circle cx="25" cy="25" r="20" :fill="color" />
-    </svg>
-</template>
-
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 
@@ -25,3 +19,9 @@ function handleClick() {
     cursor: pointer;
 }
 </style>
+
+<template>
+    <svg class="grid-item" width="50" height="50" @click="handleClick">
+        <circle cx="25" cy="25" r="20" :fill="color" />
+    </svg>
+</template>

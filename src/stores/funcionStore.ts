@@ -1,4 +1,3 @@
-import type { Funcion } from '@/utils/interfaces'
 import { defineStore } from 'pinia'
 
 export const useFuncionStore = defineStore('funciones', {
@@ -23,3 +22,5 @@ export const useFuncionStore = defineStore('funciones', {
     }
   }
 })
+
+export default useFuncionStore

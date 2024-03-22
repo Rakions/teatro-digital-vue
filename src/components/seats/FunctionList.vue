@@ -42,7 +42,7 @@ function selectFuncion(funcionID: number) {
 
 <style scoped>
 .function_list {
-    width: 70%;
+    width: 100%;
 }
 
 .function_list ul {
@@ -67,5 +67,11 @@ function selectFuncion(funcionID: number) {
     background-color: var(--color-principal);
     border-radius: 5px;
     cursor: pointer;
+}
+
+@media(min-width:768px) {
+    .function_list {
+        width: 70%;
+    }
 }
 </style>

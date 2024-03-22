@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-
+import useFuncionStore from '../../stores/funcionStore';
 
 var obraId = null;
 
@@ -9,17 +9,14 @@ if (localStorage.getItem('funcion')) {
     localStorage.removeItem('funcion')
 }
 
-if (!obraId) {
-
-}
-
 interface Circle {
     color: string;
     original: string;
+    reservado: boolean;
 }
 
 const grid = ref<Circle[][]>(Array.from({ length: 12 }, () =>
-    Array.from({ length: 12 }, () => ({ color: 'blue', original: 'blue' }))
+    Array.from({ length: 12 }, () => ({ color: 'blue', original: 'blue', reservado: false }))
 ));
 
 const toggleColor = (rowIndex: number, columnIndex: number) => {
@@ -38,7 +35,8 @@ const toggleColor = (rowIndex: number, columnIndex: number) => {
         <div v-for="(row, rowIndex) in grid" :key="'row-' + rowIndex" class="grid-row">
             <svg v-for="(circle, columnIndex) in row" :key="'circle-' + rowIndex + '-' + columnIndex" class="grid-item"
                 width="50" height="50" @click="toggleColor(rowIndex, columnIndex)">
-                <circle cx="25" cy="25" r="20" :fill="circle.color" />
+                <circle :id="'' + (rowIndex * grid[0].length + columnIndex + 1)" cx="25" cy="25" r="20"
+                    :fill="circle.color" />
             </svg>
         </div>
     </div>
@@ -51,6 +49,7 @@ const toggleColor = (rowIndex: number, columnIndex: number) => {
     flex-direction: column;
     align-items: center;
     /* Center the grid container */
+    overflow: scroll;
 }
 
 .grid-row {
