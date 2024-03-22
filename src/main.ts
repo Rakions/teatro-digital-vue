@@ -4,6 +4,7 @@ import './assets/styles/aboutUs.css'
 import './assets/styles/notFound.css'
 import './assets/styles/purchaseCompleted.css'
 import './assets/styles/purchasePage.css'
+import './assets/styles/dashboard.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
