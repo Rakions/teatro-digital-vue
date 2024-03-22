@@ -7,6 +7,7 @@ import './assets/styles/purchasePage.css'
 import './assets/styles/dashboard.css'
 
 import { createApp } from 'vue'
+import PrimeVue from 'primevue/config';
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
@@ -40,5 +41,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(i18n)
+app.use(PrimeVue)
 
 app.mount('#app')
