@@ -5,8 +5,10 @@ import { ref, onMounted } from 'vue'
 
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
+import InputText from 'primevue/inputtext'
+import InputNumber from 'primevue/inputnumber'
 
-let products = ref([
+const products = ref([
   {
     id: '1000',
     code: 'f230fh0g3',
@@ -27,11 +29,8 @@ const columns = ref([
   { field: 'price', header: 'Price' }
 ])
 
-onMounted(() => {
-  // meter servicio para recibir las obras
-})
-
 const onCellEditComplete = (event) => {
+  //console.log(event.field, event.newValue, event.data)
   let { data, newValue, field } = event
 
   switch (field) {
@@ -61,9 +60,8 @@ const isPositiveInteger = (val) => {
 
   return n !== Infinity && String(n) === str && n >= 0
 }
-
 const formatCurrency = (value) => {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+  return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(value)
 }
 </script>
 
@@ -101,8 +99,8 @@ const formatCurrency = (value) => {
             <InputNumber
               v-model="data[field]"
               mode="currency"
-              currency="USD"
-              locale="en-US"
+              currency="EUR"
+              locale="es-ES"
               autofocus
             />
           </template>
