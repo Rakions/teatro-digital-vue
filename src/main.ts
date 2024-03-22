@@ -8,7 +8,7 @@ import './assets/styles/dashboard.css'
 
 import { createApp } from 'vue'
 import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/aura-light-green/theme.css'
+import 'primevue/resources/themes/aura-light-noir/theme.css'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
