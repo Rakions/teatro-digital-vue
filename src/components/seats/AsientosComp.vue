@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import useFuncionStore from '../../stores/funcionStore';
 
-var obraId = null;
-
-if (localStorage.getItem('funcion')) {
-    obraId = localStorage.getItem('funcion')
-    localStorage.removeItem('funcion')
-}
+// Definiendo las props que el componente recibirá
+const props = defineProps({
+    reservas: Array,
+    funcionID: Number
+});
 
 interface Circle {
     color: string;
@@ -15,14 +14,36 @@ interface Circle {
     reservado: boolean;
 }
 
-const grid = ref<Circle[][]>(Array.from({ length: 12 }, () =>
-    Array.from({ length: 12 }, () => ({ color: 'blue', original: 'blue', reservado: false }))
-));
+const grid = ref<Circle[][]>([]);
+
+// Función para inicializar la grid y marcar asientos reservados
+const initializeGrid = () => {
+    grid.value = Array.from({ length: 10 }, () =>
+        Array.from({ length: 10 }, () => ({ color: 'blue', original: 'blue', reservado: false }))
+    );
+
+    props.reservas.forEach(reserva => {
+        if (reserva.funcionID === props.funcionID) {
+            const asientoIndex = reserva.asiento - 1;
+            const rowIndex = Math.floor(asientoIndex / 10);
+            const columnIndex = asientoIndex % 10;
+            grid.value[rowIndex][columnIndex].reservado = true;
+            grid.value[rowIndex][columnIndex].original = 'green';
+        }
+    });
+};
+
+onMounted(() => {
+    initializeGrid();
+});
 
 const toggleColor = (rowIndex: number, columnIndex: number) => {
     const circle = grid.value[rowIndex][columnIndex];
-    circle.color = circle.color === 'red' ? circle.original : 'red';
-    grid.value[rowIndex][columnIndex] = { ...circle };
+    // Verificar si el asiento está reservado antes de cambiar el color
+    if (!circle.reservado) {
+        circle.color = circle.color === 'red' ? circle.original : 'red';
+        grid.value[rowIndex][columnIndex] = { ...circle };
+    }
 };
 </script>
 
@@ -42,14 +63,12 @@ const toggleColor = (rowIndex: number, columnIndex: number) => {
     </div>
 </template>
 
-
 <style scoped>
 .grid-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     /* Center the grid container */
-    overflow: scroll;
 }
 
 .grid-row {
