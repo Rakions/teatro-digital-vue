@@ -9,6 +9,7 @@ import './assets/styles/dashboard.css'
 import { createApp } from 'vue'
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/aura-light-noir/theme.css'
+import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
@@ -46,5 +47,6 @@ app.use(PrimeVue, {
   pt: {
   }
 })
+app.use(ToastService);
 
 app.mount('#app')
