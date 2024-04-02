@@ -4,7 +4,6 @@ import TheFooter from '../components/layout/PageFooter.vue';
 import CategoriasSelector from '../components/Index/CategoriaSelector.vue';
 import CanvasComp from '@/components/Index/CanvasComp.vue';
 
-
 </script>
 
 <template>
