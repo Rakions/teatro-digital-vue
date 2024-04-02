@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import TheHeader from '../components/layout/PageHeader.vue'
-import TheFooter from '../components/layout/PageFooter.vue'
+import TheHeader from '../components/layout/PageHeader.vue';
+import TheFooter from '../components/layout/PageFooter.vue';
+import CategoriasSelector from '../components/Index/CategoriaSelector.vue';
+import CanvasComp from '@/components/Index/CanvasComp.vue';
 
 </script>
 
@@ -9,22 +11,9 @@ import TheFooter from '../components/layout/PageFooter.vue'
     <TheHeader />
     <main class="mainPage">
       <div class="mainPage_mainImage">
-        <img src="../assets/images/mainPage_mainImage.jpg" alt="" />
+        <CanvasComp />
       </div>
-
-      <div class="mainPage_categorySelector">
-        <button onclick="getObrasCategoria('familiar')">
-          <p>FAMILIAR</p>
-        </button>
-        <button onclick="getObrasCategoria('comedia')">
-          <p>COMEDIA</p>
-        </button>
-        <button onclick="getObrasCategoria('musical')">
-          <p>MUSICAL</p>
-        </button>
-      </div>
-
-      <div class="mainPage_functionsList"></div>
+      <CategoriasSelector />
     </main>
     <TheFooter />
   </main>

@@ -4,8 +4,13 @@ import './assets/styles/aboutUs.css'
 import './assets/styles/notFound.css'
 import './assets/styles/purchaseCompleted.css'
 import './assets/styles/purchasePage.css'
+import './assets/styles/dashboard.css'
 
 import { createApp } from 'vue'
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/themes/aura-light-noir/theme.css'
+import ToastService from 'primevue/toastservice';
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { createI18n } from 'vue-i18n'
@@ -22,7 +27,14 @@ const vuetify = createVuetify({
 
 const app = createApp(App)
 
+app.use(createPinia())
 app.use(router)
+app.use(i18n)
+app.use(PrimeVue, {
+  pt: {
+  }
+})
+app.use(ToastService);
 
 app.use(vuetify).mount('#app')
 
