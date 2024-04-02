@@ -25,6 +25,29 @@ const vuetify = createVuetify({
   directives
 })
 
+const messages = {
+  en: {
+    message: {
+      hello: 'hello world',
+      funciones: 'functions',
+      ofertas: 'sales'
+    }
+  },
+  ja: {
+    message: {
+      hello: 'hola',
+      funciones: 'funciones',
+      ofertas: 'ofertas'
+    }
+  }
+}
+
+const i18n = createI18n({
+  locale: 'es',
+  fallbackLocale: 'en',
+  messages
+})
+
 const app = createApp(App)
 
 app.use(createPinia())
@@ -37,26 +60,3 @@ app.use(PrimeVue, {
 app.use(ToastService);
 
 app.use(vuetify).mount('#app')
-
-// const messages = {
-//   en: {
-//     message: {
-//       hello: 'hello world',
-//       funciones: 'functions',
-//       ofertas: 'sales'
-//     }
-//   },
-//   ja: {
-//     message: {
-//       hello: 'hola',
-//       funciones: 'funciones',
-//       ofertas: 'ofertas'
-//     }
-//   }
-// }
-
-// const i18n = createI18n({
-//   locale: 'es',
-//   fallbackLocale: 'en',
-//   messages
-// })
