@@ -1,27 +1,24 @@
 <script setup lang="ts">
 import { useObrasStore } from '@/stores/obrasStore';
 import type { Funcion } from '@/utils/interfaces';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import { formatDateTime } from '@/utils/utils';
 import { useRouter, useRoute } from 'vue-router'
 
 const obrasStore = useObrasStore();
-const props = defineProps<{ id: number }>();
+const props: any = defineProps({ id: Number });
 const horas = computed(() => obrasStore.funciones as Funcion[]);
-const urlParams = new URLSearchParams(window.location.search);
-const obraID: number = urlParams.getAll('obraID')[0] as unknown as number;
 const router = useRouter();
+const route = useRoute();
 
-watch(() => props.id, async (newId) => {
-    if (newId !== undefined && newId !== null) {
-        await obrasStore.fetchFunciones(obraID);
-    }
-}, { immediate: true });
+async function loadFunciones(id: number) {
+    await obrasStore.fetchFunciones(id);
+}
 
+loadFunciones(props.id);
 
 function selectFuncion(funcionID: number) {
-    localStorage.setItem("funcion", funcionID as unknown as string)
-    router.push('/asientos')
+    router.push({ name: 'asientos', params: { obraId: funcionID } })
 }
 
 </script>

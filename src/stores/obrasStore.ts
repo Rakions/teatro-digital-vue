@@ -6,8 +6,7 @@ export const useObrasStore = defineStore('obras', {
     obras: [],
     isLoading: false,
     cargaExitosa: true,
-    funciones: [] as Funcion[],
-    asientos: []
+    funciones: [] as Funcion[]
   }),
   actions: {
     async fetchUrl(url: string) {

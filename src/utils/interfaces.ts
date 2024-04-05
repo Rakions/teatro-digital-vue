@@ -12,3 +12,10 @@ export interface Funcion {
   fechaHora: string
   precio: number | null // Uso 'number | null' porque dijiste que el precio puede ser null
 }
+
+export interface Reserva {
+  reservaID: number
+  funcionID: number
+  userID: number
+  asiento: number
+}

@@ -3,15 +3,27 @@ import { computed } from 'vue';
 import TheHeader from '../components/layout/PageHeader.vue';
 import FunctionInfo from '@/components/seats/FunctionInfo.vue';
 import FunctionList from '@/components/seats/FunctionList.vue';
+import { useRoute } from 'vue-router';
+import { useObrasStore } from '@/stores/obrasStore';
 
+const obrasStore = useObrasStore();
+const route = useRoute();
+const obraId = Number(route.params.obraId);
+const obra: any = computed(() => obrasStore.obras)
+
+async function getObra() {
+  await obrasStore.fetchObrasById(obraId)
+}
+
+getObra();
 </script>
 
 <template>
   <TheHeader />
   <div class="seats">
     <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
-    <FunctionInfo class="functionInfo" />
-    <FunctionList :id="1" />
+    <FunctionInfo class="functionInfo" :titulo="obra.titulo" :descripcion="obra.descripcion" />
+    <FunctionList :id="obraId" />
   </div>
 </template>
 
