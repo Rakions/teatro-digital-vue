@@ -19,3 +19,9 @@ export interface Reserva {
   userID: number
   asiento: number
 }
+export interface Asiento {
+  reservaID: number
+  funcionID: number
+  userID: number
+  asiento: number
+}

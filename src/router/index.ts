@@ -16,11 +16,6 @@ const router = createRouter({
       component: ObraView
     },
     {
-      path: '/asientos/:obraId',
-      name: 'asientos',
-      component: AsientosView
-    },
-    {
       path: '/',
       name: 'home',
       component: IndexView

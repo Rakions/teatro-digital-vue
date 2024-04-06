@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import type { Asiento } from '@/utils/interfaces';
 import { ref, onMounted } from 'vue';
+import { defineEmits } from 'vue';
 
 const props = defineProps({
-    reservas: Array,
-    funcionID: Number
+    asientosFiltrados: Array as () => Asiento[]
 });
+
+const emits = defineEmits(['update:asientos'])
+
+function emitReservarAsientos(asientos: Asiento[]) {
+    emits('update:asientos', asientos)
+}
 
 interface Circle {
     color: string;
@@ -16,19 +23,17 @@ const grid = ref<Circle[][]>([]);
 const selectedSeatIds = ref(new Set<number>());
 
 const initializeGrid = () => {
-    grid.value = Array.from({ length: 10 }, () =>
-        Array.from({ length: 10 }, () => ({ color: '#cda881', original: '#cda881', reservado: false }))
+    grid.value = Array.from({ length: 10 }, (_, rowIndex) =>
+        Array.from({ length: 10 }, (_, columnIndex) => {
+            const seatId = rowIndex * 10 + columnIndex + 1;
+            const isReserved = props.asientosFiltrados.some(asiento => asiento.asiento === seatId);
+            return {
+                color: isReserved ? 'red' : '#cda881',
+                original: '#cda881',
+                reservado: isReserved
+            };
+        })
     );
-
-    props.reservas.forEach(reserva => {
-        if (reserva.funcionID === props.funcionID) {
-            const asientoIndex = reserva.asiento - 1;
-            const rowIndex = Math.floor(asientoIndex / 10);
-            const columnIndex = asientoIndex % 10;
-            grid.value[rowIndex][columnIndex].reservado = true;
-            grid.value[rowIndex][columnIndex].color = 'red';
-        }
-    });
 };
 
 const toggleColor = (rowIndex: number, columnIndex: number) => {
@@ -42,37 +47,48 @@ const toggleColor = (rowIndex: number, columnIndex: number) => {
         if (circle.color === 'green') {
             selectedSeatIds.value.add(seatId);
             console.log(selectedSeatIds.value);
-
         } else {
             selectedSeatIds.value.delete(seatId);
         }
     }
 };
 
-onMounted(() => {
-    initializeGrid();
-});
+onMounted(initializeGrid);
 </script>
 
 
 
+
 <template>
-    <div class="grid-container">
-        <svg width="300" height="30">
-            <rect width="300" height="30" fill="black" />
-            <text x="150" y="20" fill="white" font-size="14" text-anchor="middle">ESCENARIO</text>
-        </svg>
-        <div v-for="(row, rowIndex) in grid" :key="'row-' + rowIndex" class="grid-row">
-            <svg v-for="(circle, columnIndex) in row" :key="'circle-' + rowIndex + '-' + columnIndex" class="grid-item"
-                width="50" height="50" @click="toggleColor(rowIndex, columnIndex)">
-                <circle :id="'' + (rowIndex * grid[0].length + columnIndex + 1)" cx="25" cy="25" r="20"
-                    :fill="circle.color" />
+    <div class="asientos_wrapper">
+        <div class="grid-container">
+            <svg width="300" height="30">
+                <rect width="300" height="30" fill="black" />
+                <text x="150" y="20" fill="white" font-size="14" text-anchor="middle">ESCENARIO</text>
             </svg>
+            <div v-for="(row, rowIndex) in grid" :key="'row-' + rowIndex" class="grid-row">
+                <svg v-for="(circle, columnIndex) in row" :key="'circle-' + rowIndex + '-' + columnIndex"
+                    class="grid-item" width="50" height="50" @click="toggleColor(rowIndex, columnIndex)">
+                    <circle :id="'' + (rowIndex * grid[0].length + columnIndex + 1)" cx="25" cy="25" r="20"
+                        :fill="circle.color" />
+                </svg>
+            </div>
         </div>
+        <button class="boton_reservar">
+            Reservar
+        </button>
     </div>
 </template>
 
 <style scoped>
+.asientos_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+}
+
 .grid-container {
     display: flex;
     flex-direction: column;

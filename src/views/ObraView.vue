@@ -1,21 +1,47 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import TheHeader from '../components/layout/PageHeader.vue';
 import FunctionInfo from '@/components/seats/FunctionInfo.vue';
 import FunctionList from '@/components/seats/FunctionList.vue';
+import AsientosComp from '@/components/seats/AsientosComp.vue';
 import { useRoute } from 'vue-router';
 import { useObrasStore } from '@/stores/obrasStore';
+import type { Asiento } from '@/utils/interfaces';
+import { useAsientosStore } from '@/stores/asientosStore';
 
+const asientosStore = useAsientosStore();
 const obrasStore = useObrasStore();
 const route = useRoute();
 const obraId = Number(route.params.obraId);
 const obra: any = computed(() => obrasStore.obras)
+const funcionId = ref(0);
+const asientos = ref<Asiento[]>([])
+const asientosFiltrados = ref<Asiento[]>([])
+const asientosBool = ref(false);
 
 async function getObra() {
   await obrasStore.fetchObrasById(obraId)
+  asientos.value = obra.value.reservas;
+}
+getObra();
+
+const updateFuncionId = (newFuncionId: number) => {
+  funcionId.value = newFuncionId;
 }
 
-getObra();
+const purchaseSeatsEvent = (asientos: Asiento[]) => {
+  purchaseSeats(asientos);
+}
+
+async function purchaseSeats(asientos: Asiento[]) {
+  await asientosStore.reservar(asientos)
+}
+
+watch(funcionId, (newVal) => {
+  asientosBool.value = true;
+  asientosFiltrados.value = asientos.value.filter(asiento => asiento.funcionID == newVal)
+})
+
 </script>
 
 <template>
@@ -23,7 +49,8 @@ getObra();
   <div class="seats">
     <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
     <FunctionInfo class="functionInfo" :titulo="obra.titulo" :descripcion="obra.descripcion" />
-    <FunctionList :id="obraId" />
+    <FunctionList v-if="!asientosBool" :id="obraId" @update:funcion-id="updateFuncionId" />
+    <AsientosComp v-else :asientosFiltrados="asientosFiltrados" @update:asientos="purchaseSeatsEvent" />
   </div>
 </template>
 

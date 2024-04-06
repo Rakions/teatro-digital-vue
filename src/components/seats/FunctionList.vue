@@ -3,13 +3,12 @@ import { useObrasStore } from '@/stores/obrasStore';
 import type { Funcion } from '@/utils/interfaces';
 import { computed } from 'vue';
 import { formatDateTime } from '@/utils/utils';
-import { useRouter, useRoute } from 'vue-router'
+import { defineEmits } from 'vue';
 
 const obrasStore = useObrasStore();
 const props: any = defineProps({ id: Number });
 const horas = computed(() => obrasStore.funciones as Funcion[]);
-const router = useRouter();
-const route = useRoute();
+const emits = defineEmits(['update:funcionId']);
 
 async function loadFunciones(id: number) {
     await obrasStore.fetchFunciones(id);
@@ -17,8 +16,8 @@ async function loadFunciones(id: number) {
 
 loadFunciones(props.id);
 
-function selectFuncion(funcionID: number) {
-    router.push({ name: 'asientos', params: { obraId: funcionID } })
+function emitFuncionId(newFuncionId: number) {
+    emits('update:funcionId', newFuncionId);
 }
 
 </script>
@@ -28,7 +27,7 @@ function selectFuncion(funcionID: number) {
         <ul>
             <li v-for="hora in horas" :key="hora.funcionID">
                 <span>{{ formatDateTime(hora.fechaHora) }}</span>
-                <button type="button" @click="selectFuncion(hora.funcionID)">
+                <button type="button" @click="emitFuncionId(hora.funcionID)">
                     Reservar
                 </button>
             </li>
