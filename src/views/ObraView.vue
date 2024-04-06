@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router';
 import { useObrasStore } from '@/stores/obrasStore';
 import type { Asiento } from '@/utils/interfaces';
 import { useAsientosStore } from '@/stores/asientosStore';
+import router from '@/router';
 
 const asientosStore = useAsientosStore();
 const obrasStore = useObrasStore();
@@ -29,19 +30,27 @@ const updateFuncionId = (newFuncionId: number) => {
   funcionId.value = newFuncionId;
 }
 
-const purchaseSeatsEvent = (asientos: Asiento[]) => {
+const purchaseSeatsEvent = (asientos: number[]) => {
   purchaseSeats(asientos);
 }
 
-async function purchaseSeats(asientos: Asiento[]) {
-  await asientosStore.reservar(asientos)
+async function purchaseSeats(asientos: number[]) {
+  var asientoFetch: any = [];
+  asientos.forEach((asiento) => {
+    asientoFetch.push({ "funcionID": funcionId.value, "userID": 1, "asiento": asiento })
+  })
+
+  if (asientoFetch.length > 0) {
+    await asientosStore.reservar(asientoFetch)
+  } else {
+    console.error("Ningún asiento seleccionado")
+  }
 }
 
 watch(funcionId, (newVal) => {
   asientosBool.value = true;
   asientosFiltrados.value = asientos.value.filter(asiento => asiento.funcionID == newVal)
 })
-
 </script>
 
 <template>

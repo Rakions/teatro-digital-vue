@@ -6,12 +6,10 @@ import { defineEmits } from 'vue';
 const props = defineProps({
     asientosFiltrados: Array as () => Asiento[]
 });
-
 const emits = defineEmits(['update:asientos'])
+const asientosSeleccionados = ref<number[]>([])
 
-function emitReservarAsientos(asientos: Asiento[]) {
-    emits('update:asientos', asientos)
-}
+
 
 interface Circle {
     color: string;
@@ -46,7 +44,6 @@ const toggleColor = (rowIndex: number, columnIndex: number) => {
 
         if (circle.color === 'green') {
             selectedSeatIds.value.add(seatId);
-            console.log(selectedSeatIds.value);
         } else {
             selectedSeatIds.value.delete(seatId);
         }
@@ -54,10 +51,30 @@ const toggleColor = (rowIndex: number, columnIndex: number) => {
 };
 
 onMounted(initializeGrid);
+
+function agregarReservasLista() {
+    const asientosReservadosIds = Array.from(selectedSeatIds.value);
+
+    asientosSeleccionados.value = asientosReservadosIds;
+
+    emitReservarAsientos(asientosReservadosIds);
+
+    selectedSeatIds.value.clear();
+    grid.value.forEach((row, rowIndex) => {
+        row.forEach((circle, columnIndex) => {
+            if (!circle.reservado) {
+                circle.color = circle.original;
+            }
+            grid.value[rowIndex][columnIndex] = { ...circle };
+        });
+    });
+}
+
+function emitReservarAsientos(asientos: number[]) {
+    emits('update:asientos', asientos)
+}
+
 </script>
-
-
-
 
 <template>
     <div class="asientos_wrapper">
@@ -70,11 +87,11 @@ onMounted(initializeGrid);
                 <svg v-for="(circle, columnIndex) in row" :key="'circle-' + rowIndex + '-' + columnIndex"
                     class="grid-item" width="50" height="50" @click="toggleColor(rowIndex, columnIndex)">
                     <circle :id="'' + (rowIndex * grid[0].length + columnIndex + 1)" cx="25" cy="25" r="20"
-                        :fill="circle.color" />
+                        :fill="circle.color" class="circulo" />
                 </svg>
             </div>
         </div>
-        <button class="boton_reservar">
+        <button class="boton_reservar" @click="agregarReservasLista">
             Reservar
         </button>
     </div>
@@ -87,6 +104,10 @@ onMounted(initializeGrid);
     width: 70%;
     align-items: center;
     justify-content: center;
+}
+
+.boton_reservar {
+    width: 50%;
 }
 
 .grid-container {

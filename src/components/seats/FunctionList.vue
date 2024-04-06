@@ -27,7 +27,7 @@ function emitFuncionId(newFuncionId: number) {
         <ul>
             <li v-for="hora in horas" :key="hora.funcionID">
                 <span>{{ formatDateTime(hora.fechaHora) }}</span>
-                <button type="button" @click="emitFuncionId(hora.funcionID)">
+                <button type="button" @click="emitFuncionId(hora.funcionID)" style="color: white;">
                     Reservar
                 </button>
             </li>

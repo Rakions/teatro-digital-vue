@@ -10,7 +10,7 @@ export interface Funcion {
   obraID: number
   salaID: number
   fechaHora: string
-  precio: number | null // Uso 'number | null' porque dijiste que el precio puede ser null
+  precio: number | null
 }
 
 export interface Reserva {
