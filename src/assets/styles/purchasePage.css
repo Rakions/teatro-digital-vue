@@ -1,8 +1,7 @@
 .data_formulary {
-  width: 90vw;
+  width: 100%;
   display: flex;
   justify-content: start;
-  margin-left: 5vw;
   margin-top: 2rem;
 }
 .data_formulary form {

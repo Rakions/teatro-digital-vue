@@ -6,48 +6,73 @@ import FunctionList from '@/components/seats/FunctionList.vue';
 import AsientosComp from '@/components/seats/AsientosComp.vue';
 import { useRoute } from 'vue-router';
 import { useObrasStore } from '@/stores/obrasStore';
-import type { Asiento } from '@/utils/interfaces';
-import { useAsientosStore } from '@/stores/asientosStore';
+import type { Asiento, Funcion } from '@/utils/interfaces';
 import router from '@/router';
+import ConfirmSeats from '@/components/seats/ConfirmSeats.vue';
+import { useAsientosStore } from '@/stores/asientosStore';
 
 const asientosStore = useAsientosStore();
 const obrasStore = useObrasStore();
 const route = useRoute();
 const obraId = Number(route.params.obraId);
 const obra: any = computed(() => obrasStore.obras)
+const horas = computed(() => obrasStore.funciones as Funcion[]);
 const funcionId = ref(0);
 const asientos = ref<Asiento[]>([])
 const asientosFiltrados = ref<Asiento[]>([])
 const asientosBool = ref(false);
+const funcionesBool = ref(true);
+const confirmarAsientos = ref(false)
+const idsAsientos = ref<Number[]>([])
+const precio = ref(0)
+var asientoFetch: any = [];
 
 async function getObra() {
   await obrasStore.fetchObrasById(obraId)
   asientos.value = obra.value.reservas;
 }
 getObra();
+async function loadFunciones(id: number) {
+  await obrasStore.fetchFunciones(id);
+}
+loadFunciones(obraId);
 
 const updateFuncionId = (newFuncionId: number) => {
   funcionId.value = newFuncionId;
 }
 
 const purchaseSeatsEvent = (asientos: number[]) => {
+  idsAsientos.value = asientos;
   purchaseSeats(asientos);
 }
 
 async function purchaseSeats(asientos: number[]) {
-  var asientoFetch: any = [];
+  asientoFetch = [];
   asientos.forEach((asiento) => {
     asientoFetch.push({ "funcionID": funcionId.value, "userID": 1, "asiento": asiento })
   })
-
   if (asientoFetch.length > 0) {
-    await asientosStore.reservar(asientoFetch)
-  } else {
+
+    obtenerPrecio(funcionId.value)
+    asientosBool.value = false;
+    confirmarAsientos.value = true;
+  } else if (confirmarAsientos.value == true) {
     console.error("Ningún asiento seleccionado")
   }
 }
 
+async function procederPago() {
+  await asientosStore.reservar(asientoFetch)
+  router.replace('/')
+}
+
+function obtenerPrecio(id: number) {
+  const funcion: any = horas.value.find(funcion => funcion.funcionID === id)
+  precio.value = funcion.precio * idsAsientos.value.length;
+}
+
 watch(funcionId, (newVal) => {
+  funcionesBool.value = false;
   asientosBool.value = true;
   asientosFiltrados.value = asientos.value.filter(asiento => asiento.funcionID == newVal)
 })
@@ -58,8 +83,9 @@ watch(funcionId, (newVal) => {
   <div class="seats">
     <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
     <FunctionInfo class="functionInfo" :titulo="obra.titulo" :descripcion="obra.descripcion" />
-    <FunctionList v-if="!asientosBool" :id="obraId" @update:funcion-id="updateFuncionId" />
-    <AsientosComp v-else :asientosFiltrados="asientosFiltrados" @update:asientos="purchaseSeatsEvent" />
+    <FunctionList v-if="funcionesBool" :horas="horas" @update:funcion-id="updateFuncionId" />
+    <AsientosComp v-if="asientosBool" :asientosFiltrados="asientosFiltrados" @update:asientos="purchaseSeatsEvent" />
+    <ConfirmSeats v-if="confirmarAsientos" :asientos="idsAsientos" :precio="precio" @pagar="procederPago" />
   </div>
 </template>
 

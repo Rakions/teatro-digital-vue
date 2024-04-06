@@ -6,15 +6,10 @@ import { formatDateTime } from '@/utils/utils';
 import { defineEmits } from 'vue';
 
 const obrasStore = useObrasStore();
-const props: any = defineProps({ id: Number });
-const horas = computed(() => obrasStore.funciones as Funcion[]);
+const props = defineProps({
+    horas: Array as () => Funcion[]
+});
 const emits = defineEmits(['update:funcionId']);
-
-async function loadFunciones(id: number) {
-    await obrasStore.fetchFunciones(id);
-}
-
-loadFunciones(props.id);
 
 function emitFuncionId(newFuncionId: number) {
     emits('update:funcionId', newFuncionId);
