@@ -28,7 +28,10 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch('http://localhost:6949/api/Sesion/Registrar', requestOptions)
+        const response = await fetch(
+          'http://api.teatrogaleguista.work.gd/api/Sesion/Registrar',
+          requestOptions
+        )
         const result = await response.json()
         return result
       } catch (error) {
@@ -58,7 +61,10 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch('http://localhost:6949/api/Sesion/Iniciar', requestOptions)
+        const response = await fetch(
+          'http://api.teatrogaleguista.work.gd/Sesion/Iniciar',
+          requestOptions
+        )
         const result = await response.json()
         return result
       } catch (error) {
@@ -73,7 +79,7 @@ export const useUserStore = defineStore('user', {
       }
       try {
         const reponse = await fetch(
-          'http://localhost:6949/api/Sesion/usuario/' + getToken(),
+          'http://api.teatrogaleguista.work.gd/api/Sesion/usuario/' + getToken(),
           requestOptions
         )
         const result = await reponse.json()
@@ -94,7 +100,10 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch('http://localhost:6949/api/Usuario', requestOptions)
+        const response = await fetch(
+          'http://api.teatrogaleguista.work.gd/api/Usuario',
+          requestOptions
+        )
         const result = await response.json()
         this.usuarios = result
       } catch (error) {
@@ -124,7 +133,10 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch('http://localhost:6949/api/Usuario', requestOptions)
+        const response = await fetch(
+          'http://api.teatrogaleguista.work.gd/api/Usuario',
+          requestOptions
+        )
         const result = await response.json()
         return result
       } catch (error) {
