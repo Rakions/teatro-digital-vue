@@ -3,12 +3,13 @@ import { ref, onMounted, computed } from 'vue'
 
 import Menu from '@/components/Dashboard/MenuDashboard.vue'
 import { useObrasStore } from '@/stores/obrasStore'
-
-import Obra from '@/interfaces/Obra'
+import type { Obra } from '@/interfaces/Obra';
+import TablaObras from '@/components/Dashboard/TablaObras.vue';
 
 const obrasStore = useObrasStore()
 const dialog = ref(false)
 const dialogCrear = ref(false)
+const idModificar = ref(0)
 
 onMounted(() => {
   obrasStore.fetchAllObras().then(() => {
@@ -28,22 +29,12 @@ const obrasConDescripcionCorta = computed(() => {
   }))
 })
 
-function numeroACategoria(index: Number) {
-  switch (index) {
-    case 0:
-      return 'Familiar'
-    case 1:
-      return 'Comedia'
-    case 2:
-      return 'Musical'
-  }
-}
-
 function abrirCrearObra() {
   dialogCrear.value = true
 }
 
-function modificarObra(obraID: Number) {
+function modificarObra(obraID: number) {
+  idModificar.value = obraID;
   console.log('Modificar obra con ID:', obraID)
   dialog.value = true
 }
@@ -55,7 +46,7 @@ function modificarObra(obraID: Number) {
 
     <div class="table_wrapper">
       <button @click="abrirCrearObra">Crear Obra</button>
-      
+
       <v-dialog v-model="dialogCrear" persistent max-width="600px">
         <v-card>
           <v-card-title>
@@ -74,38 +65,15 @@ function modificarObra(obraID: Number) {
           </v-card-actions>
         </v-card>
       </v-dialog>
-      
-      <v-table>
-        <thead>
-          <tr>
-            <th class="text-left">ID</th>
-            <th class="text-left">Titulo</th>
-            <th class="text-left">Descripción</th>
-            <th class="text-left">Categoría</th>
-            <th class="text-left">Imagen</th>
-            <th class="text-left">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in obrasConDescripcionCorta" :key="item.obraID">
-            <td>{{ item.obraID }}</td>
-            <td>{{ item.titulo }}</td>
-            <td>{{ item.descripcion }}</td>
-            <td>{{ numeroACategoria(item.categoriaID!) }}</td>
-            <td><img class="table_imagen" :src="item.imagen" /></td>
-            <td>
-              <button @click="modificarObra(item.obraID!)">Modificar</button>
-            </td>
-          </tr>
-        </tbody>
-      </v-table>
+      <TablaObras />
+
       <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
           <v-card-title>
             Modificar Obra
             <v-spacer></v-spacer>
             <v-btn icon @click="dialog = false">
-              <v-icon>mdi-close</v-icon>
+              X
             </v-btn>
           </v-card-title>
           <v-card-text>
@@ -132,7 +100,6 @@ function modificarObra(obraID: Number) {
 }
 
 .table_wrapper {
-  display: flex;
   width: 100%;
   height: 100%;
   padding: 1rem;

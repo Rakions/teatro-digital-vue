@@ -4,7 +4,8 @@ export const useObrasStore = defineStore('obras', {
   state: () => ({
     obras: [],
     isLoading: false,
-    cargaExitosa: true
+    cargaExitosa: true,
+    funciones: [] as Funcion[]
   }),
   actions: {
     async fetchObrasCategoria(categoria: number) {

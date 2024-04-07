@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useObrasStore } from '../../stores/obrasStore';
+import router from '@/router';
 
 const obrasStore = useObrasStore();
 
@@ -14,6 +15,10 @@ async function getObrasCategoria(categoria: number) {
 
 async function getAllObras() {
     await obrasStore.fetchAllObras()
+}
+
+function navigateObra(id: number) {
+    router.push({ name: 'obra', params: { obraId: id } })
 }
 
 getAllObras();
@@ -46,7 +51,7 @@ getAllObras();
     </div>
     <span v-if="!cargaExitosa" class="error_message">No se han podido cargar las obras</span>
     <div class="mainPage_functionsList">
-        <a :href="`/asientos?obraID=${obra.obraID}`" v-for="obra in obras" :key="obra.obraID" class="obra-item">
+        <a @click="navigateObra(obra.obraID)" v-for="obra in obras" :key="obra.obraID" class="obra-item">
             <div class="function">
                 <img src="#" alt="">
                 <div>
