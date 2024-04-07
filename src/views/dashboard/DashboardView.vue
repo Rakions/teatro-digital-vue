@@ -1,19 +1,32 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-
 import Menu from '@/components/Dashboard/MenuDashboard.vue'
 import { useObrasStore } from '@/stores/obrasStore'
-import type { Obra } from '@/utils/interfaces';
+import type { Obra, UsuarioFetchDashboard } from '@/utils/interfaces';
 import TablaObras from '@/components/Dashboard/TablaObras.vue';
-const obrasStore = useObrasStore()
+import { useUserStore } from '@/stores/userStore';
+import TablaUsuarios from '@/components/Dashboard/TablaUsuarios.vue';
+const obrasStore = useObrasStore();
+const userStore = useUserStore();
+const usuariosMostrar = ref(false);
+const obrasMostrar = ref(true)
 
-onMounted(() => {
-  obrasStore.fetchAllObras().then(() => {
+onMounted(async () => {
+  await obrasStore.fetchAllObras().then(() => {
     obras.value = obrasStore.obras
+  })
+  await userStore.fetchAllUsers().then(() => {
+    usuarios.value = userStore.usuarios
   })
 })
 
+function handleMostrarTabla(tabla: any) {
+  usuariosMostrar.value = tabla === 'usuarios';
+  obrasMostrar.value = tabla === 'obras';
+}
+
 const obras = ref<Obra[]>([])
+const usuarios = ref<UsuarioFetchDashboard[]>([]);
 
 const obrasConDescripcionCorta = computed(() => {
   return obras.value.map((obra) => ({
@@ -28,9 +41,10 @@ const obrasConDescripcionCorta = computed(() => {
 
 <template>
   <div class="main_dashboard">
-    <Menu />
+    <Menu @mostrarTabla="handleMostrarTabla" />
     <div class="table_wrapper">
-      <TablaObras :obraProp="obras" :obraCorta="obrasConDescripcionCorta" />
+      <TablaObras v-if="obrasMostrar" :obraProp="obras" :obraCorta="obrasConDescripcionCorta" />
+      <TablaUsuarios v-if="usuariosMostrar" :usuariosProp="usuarios" />
     </div>
   </div>
 </template>
@@ -40,9 +54,6 @@ const obrasConDescripcionCorta = computed(() => {
   display: flex;
   flex-direction: column-reverse;
   height: 100dvh;
-  /* scrollbar-color: red;
-    scrollbar-width: thin;
-    scrollbar-gutter: stable; */
 }
 
 .table_wrapper {
@@ -50,6 +61,7 @@ const obrasConDescripcionCorta = computed(() => {
   padding: 1rem;
   overflow-y: scroll;
   height: 100vh;
+  scrollbar-width: none;
 }
 
 @media (min-width: 768px) {

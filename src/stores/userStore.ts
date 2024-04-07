@@ -1,8 +1,11 @@
 import { defineStore } from 'pinia'
 import type { RegisterParams, Usuario } from '@/utils/interfaces'
+import { getToken } from '@/utils/utils'
 
 export const useUserStore = defineStore('user', {
-  state: () => ({}),
+  state: () => ({
+    usuarios: []
+  }),
   actions: {
     async registerUser(params: RegisterParams) {
       const myHeaders = new Headers()
@@ -60,6 +63,42 @@ export const useUserStore = defineStore('user', {
         return result
       } catch (error) {
         console.error('Error al iniciar sesión:', error)
+        throw error
+      }
+    },
+    async getUserByToken() {
+      const requestOptions: RequestInit = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+      try {
+        const reponse = await fetch(
+          'http://localhost:6949/api/Sesion/usuario/' + getToken(),
+          requestOptions
+        )
+        const result = await reponse.json()
+        return result
+      } catch (error) {
+        console.error('Error al buscar el usuario')
+        throw error
+      }
+    },
+    async fetchAllUsers() {
+      const myHeaders = new Headers()
+      myHeaders.append('Authorization', 'Bearer ' + getToken())
+
+      const requestOptions: RequestInit = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      }
+
+      try {
+        const response = await fetch('http://localhost:6949/api/Usuario', requestOptions)
+        const result = await response.json()
+        this.usuarios = result
+      } catch (error) {
+        console.error('Error al cargar los usuarios')
         throw error
       }
     }

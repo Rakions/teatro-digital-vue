@@ -27,7 +27,6 @@ export function formatDateTime(dateTimeString: string): string {
 export function getToken() {
   if (localStorage.getItem('userToken')) {
     const token = localStorage.getItem('userToken')
-    console.log(token)
     return token
   }
 }

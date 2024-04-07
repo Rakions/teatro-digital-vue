@@ -40,7 +40,7 @@ export interface RegisterParams {
   email: string
   telefono: string
   contrasena: string
-  rol: 0
+  rol: 0 | 1 | 2
 }
 
 export interface Usuario {
@@ -51,4 +51,13 @@ export interface Usuario {
   fechaInicio: ''
   ip: ''
   dispositivo: ''
+}
+
+export interface UsuarioFetchDashboard {
+  nombre: string
+  apellido: string
+  email: string
+  telefono: string
+  rol: number
+  userID: number
 }

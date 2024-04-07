@@ -1,6 +1,5 @@
 import type { Funcion, Obra } from '@/utils/interfaces'
 import { getToken } from '@/utils/utils'
-import type { RequestOptions } from 'https'
 import { defineStore } from 'pinia'
 
 export const useObrasStore = defineStore('obras', {
@@ -61,7 +60,7 @@ export const useObrasStore = defineStore('obras', {
         imagen: obra.imagen
       })
 
-      const requestOptions: RequestOptions = {
+      const requestOptions: RequestInit = {
         method: 'PUT',
         headers: myHeaders,
         body: raw,
@@ -87,7 +86,7 @@ export const useObrasStore = defineStore('obras', {
         imagen: obra.imagen
       })
 
-      const requestOptions: RequestOptions = {
+      const requestOptions: RequestInit = {
         method: 'POST',
         headers: myHeaders,
         body: raw,

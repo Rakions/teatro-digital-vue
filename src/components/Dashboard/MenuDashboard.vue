@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+const emit = defineEmits(['mostrarTabla']);
 </script>
 
 <template>
@@ -9,13 +9,13 @@
         </svg>
 
         <ul class="lista_enlaces">
-            <li class="lista_enlaces_elemento">
+            <li class="lista_enlaces_elemento" @click="emit('mostrarTabla', 'usuarios')">
                 <a href="#">
                     <i class="fa-solid fa-user"></i>
                     <span>Usuarios</span>
                 </a>
             </li>
-            <li class="lista_enlaces_elemento">
+            <li class="lista_enlaces_elemento" @click="emit('mostrarTabla', 'obras')">
                 <a href="#">
                     <i class="fa-solid fa-masks-theater"></i>
                     <span>Obras</span>

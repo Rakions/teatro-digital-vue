@@ -1,6 +1,5 @@
 import type { Asiento, Funcion } from '@/utils/interfaces'
 import { getToken } from '@/utils/utils'
-import type { RequestOptions } from 'https'
 import { defineStore } from 'pinia'
 
 export const useAsientosStore = defineStore('asientos', {
@@ -18,7 +17,7 @@ export const useAsientosStore = defineStore('asientos', {
           asiento: asiento.asiento
         })
 
-        const requestOptions: RequestOptions = {
+        const requestOptions: RequestInit = {
           method: 'POST',
           headers: myHeaders,
           body: raw,
@@ -27,7 +26,7 @@ export const useAsientosStore = defineStore('asientos', {
 
         fetch('http://localhost:6949/api/Reserva', requestOptions)
           .then((response) => response.text())
-          .then((result) => console.log(result))
+          .then((result) => {})
           .catch((error) => console.error(error))
       })
     }

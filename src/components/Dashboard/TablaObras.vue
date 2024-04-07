@@ -63,14 +63,14 @@ function crearObra() {
 </script>
 
 <template>
-    <button @click="abrirCrearObra">Crear Obra</button>
+    <button @click="abrirCrearObra" class="crear_obra">Crear Obra</button>
     <v-dialog v-model="dialogCrear" persistent max-width="600px">
         <v-card>
             <v-card-title>
                 Crear Nueva Obra
                 <v-spacer></v-spacer>
                 <v-btn icon @click="dialogCrear = false">
-                    <v-icon>mdi-close</v-icon>
+                    X
                 </v-btn>
             </v-card-title>
             <v-card-text class="texto_tarjeta">
@@ -84,7 +84,7 @@ function crearObra() {
                 </label>
                 <label for="categoria">
                     <span>Categoria: </span>
-                    <input type="number" name="categoria" v-model="obraInfoModificar.categoriaID">
+                    <input type="number" name="categoria" min="0" max="2" v-model="obraInfoModificar.categoriaID">
                 </label>
                 <label for="imagen">
                     <span>Imagen: </span>
@@ -191,5 +191,12 @@ textarea {
     resize: none;
     height: 100px;
     width: 100%;
+}
+
+.crear_obra {
+    padding: 0.2rem 0.5rem;
+    background-color: var(--color-fondo-componentes);
+    border-radius: 3px;
+    margin-bottom: 3px;
 }
 </style>
