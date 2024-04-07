@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import type { RegisterParams, UsuarioFetchDashboard } from '@/utils/interfaces';
+import type { RegisterParams, UsuarioFetchDashboard, UsuarioUpdate } from '@/utils/interfaces';
 import { useUserStore } from '@/stores/userStore';
 
 const dialog = ref(false);
@@ -49,7 +49,7 @@ function crearUsuario() {
         email: usuarioInfoModificar.value.email,
         telefono: usuarioInfoModificar.value.telefono,
         contrasena: usuarioInfoModificar.value.contrasena,
-        rol: 0
+        rol: usuarioInfoModificar.value.rol
     };
 
     usuariosStore.registerUser(params)
@@ -66,7 +66,15 @@ function crearUsuario() {
 
 
 function guardarUsuario() {
-    // usuariosStore.modificarUsuario(usuarioInfoModificar.value);
+    let params: UsuarioUpdate = {
+        nombre: usuarioInfoModificar.value.nombre,
+        apellido: usuarioInfoModificar.value.apellido,
+        email: usuarioInfoModificar.value.email,
+        telefono: usuarioInfoModificar.value.telefono,
+        contra: usuarioInfoModificar.value.contrasena,
+        rol: usuarioInfoModificar.value.rol
+    }
+    usuariosStore.actualizaUser(params);
     dialog.value = false;
 }
 </script>
@@ -103,6 +111,10 @@ function guardarUsuario() {
                     <label for="contrasena">
                         <span>Contraseña: </span>
                         <input type="password" name="contrasena" v-model="usuarioInfoModificar.contrasena">
+                    </label>
+                    <label for="rol">
+                        <span>Rol: </span>
+                        <input type="number" name="rol" v-model="usuarioInfoModificar.rol">
                     </label>
                 </v-card-text>
                 <v-card-actions>
@@ -147,7 +159,30 @@ function guardarUsuario() {
                     </v-btn>
                 </v-card-title>
                 <v-card-text class="texto_tarjeta">
-                    <!-- Los campos para modificar usuario, similares a crear usuario -->
+                    <label for="nombre">
+                        <span>Nombre: </span>
+                        <input type="text" name="nombre" v-model="usuarioInfoModificar.nombre">
+                    </label>
+                    <label for="apellido">
+                        <span>Apellido: </span>
+                        <input type="text" name="apellido" v-model="usuarioInfoModificar.apellido">
+                    </label>
+                    <label for="email">
+                        <span>Email: </span>
+                        <input type="email" name="email" v-model="usuarioInfoModificar.email">
+                    </label>
+                    <label for="telefono">
+                        <span>Teléfono: </span>
+                        <input type="tel" name="telefono" v-model="usuarioInfoModificar.telefono">
+                    </label>
+                    <label for="contrasena">
+                        <span>Contraseña: </span>
+                        <input type="password" name="contrasena" v-model="usuarioInfoModificar.contrasena">
+                    </label>
+                    <label for="rol">
+                        <span>Rol: </span>
+                        <input type="number" name="rol" v-model="usuarioInfoModificar.rol">
+                    </label>
                 </v-card-text>
                 <v-card-actions>
                     <v-btn color="primary" @click="dialog = false">Cerrar</v-btn>

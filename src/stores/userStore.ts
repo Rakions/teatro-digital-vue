@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { RegisterParams, Usuario } from '@/utils/interfaces'
+import type { RegisterParams, Usuario, UsuarioUpdate } from '@/utils/interfaces'
 import { getToken } from '@/utils/utils'
 
 export const useUserStore = defineStore('user', {
@@ -99,6 +99,36 @@ export const useUserStore = defineStore('user', {
         this.usuarios = result
       } catch (error) {
         console.error('Error al cargar los usuarios')
+        throw error
+      }
+    },
+    async actualizaUser(usuario: UsuarioUpdate) {
+      const myHeaders = new Headers()
+      myHeaders.append('Content-Type', 'application/json')
+      myHeaders.append('Authorization', 'Bearer ' + getToken())
+
+      const raw = JSON.stringify({
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        email: usuario.email,
+        telefono: usuario.telefono,
+        contra: usuario.contra,
+        rol: usuario.rol
+      })
+
+      const requestOptions: RequestInit = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      }
+
+      try {
+        const response = await fetch('http://localhost:6949/api/Usuario', requestOptions)
+        const result = await response.json()
+        return result
+      } catch (error) {
+        console.error(error)
         throw error
       }
     }
