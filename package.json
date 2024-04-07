@@ -14,9 +14,12 @@
   },
   "dependencies": {
     "pinia": "^2.1.7",
+    "primevue": "^3.50.0",
+    "@mdi/font": "^7.4.47",
     "vue": "^3.4.15",
     "vue-i18n": "^9.9.1",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuetify": "^3.5.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",

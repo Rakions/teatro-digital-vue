@@ -1,0 +1,31 @@
+.dasboard_navMenu{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 15rem;
+    height: 100vh;
+}
+
+.dashboard_navItems{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+}
+
+.dashboard_navIcons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dashboard_screen{
+    display: flex;
+}

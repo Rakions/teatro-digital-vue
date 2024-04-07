@@ -7,7 +7,6 @@ import TheFooter from '../components/layout/PageFooter.vue'
   <main>
     <TheHeader />
     <main class="mainPage">
-
       <main class="main_mobile">
         <section class="aboutUs_section">
           <h1>¿Quiénes somos?</h1>

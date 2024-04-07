@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useObrasStore } from '../../stores/obrasStore';
+import { defineProps } from 'vue';
 
-const obrasStore = useObrasStore();
-const urlParams = new URLSearchParams(window.location.search);
-const obraID = urlParams.getAll('obraID')[0];
-const obra: any = computed(() => obrasStore.obras);
-
-async function getObra() {
-    await obrasStore.fetchObrasById(obraID);
-}
-
-getObra();
+const props = defineProps({
+    titulo: String,
+    descripcion: String
+})
 </script>
 
 <template>
@@ -19,9 +12,9 @@ getObra();
     <div class="seats_functionInfo">
         <div class="function">
             <img src="#" alt="" />
-            <div>
-                <h2>{{ obra.titulo }}</h2>
-                <p>{{ obra.descripcion }}</p>
+            <div class="function_title_desc">
+                <h2>{{ props.titulo }}</h2>
+                <p>{{ props.descripcion }}</p>
             </div>
             <input type="hidden" id="id_obra" value="${obra[0].id}" />
         </div>

@@ -4,12 +4,26 @@ import './assets/styles/aboutUs.css'
 import './assets/styles/notFound.css'
 import './assets/styles/purchaseCompleted.css'
 import './assets/styles/purchasePage.css'
+import './assets/styles/dashboard.css'
 
 import { createApp } from 'vue'
+import PrimeVue from 'primevue/config';
+import 'primevue/resources/themes/aura-light-noir/theme.css'
+import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { createI18n } from 'vue-i18n'
+
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+const vuetify = createVuetify({
+  components,
+  directives
+})
 
 const messages = {
   en: {
@@ -21,17 +35,17 @@ const messages = {
   },
   ja: {
     message: {
-      hello: 'こんにちは、世界',
-      funciones: '機能',
-      ofertas: 'オファー'
+      hello: 'hola',
+      funciones: 'funciones',
+      ofertas: 'ofertas'
     }
   }
 }
 
 const i18n = createI18n({
-  locale: 'ja', // establece el idioma actual
-  fallbackLocale: 'en', // establece el idioma de respaldo
-  messages // establece los mensajes de idiomas
+  locale: 'es',
+  fallbackLocale: 'en',
+  messages
 })
 
 const app = createApp(App)
@@ -39,5 +53,10 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 app.use(i18n)
+app.use(PrimeVue, {
+  pt: {
+  }
+})
+app.use(ToastService);
 
-app.mount('#app')
+app.use(vuetify).mount('#app')
