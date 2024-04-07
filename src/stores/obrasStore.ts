@@ -32,19 +32,23 @@ export const useObrasStore = defineStore('obras', {
       }
     },
     async fetchObrasCategoria(categoria: number) {
-      const data = await this.fetchUrl(`http://localhost:6949/api/Obra/categoria/${categoria}`)
+      const data = await this.fetchUrl(
+        `http://api.teatrogaleguista.work.gd/api/Obra/categoria/${categoria}`
+      )
       if (data) this.obras = data
     },
     async fetchObrasById(id: number) {
-      const data = await this.fetchUrl(`http://localhost:6949/api/Obra/${id}`)
+      const data = await this.fetchUrl(`http://api.teatrogaleguista.work.gd/api/Obra/${id}`)
       if (data) this.obras = data
     },
     async fetchAllObras() {
-      const data = await this.fetchUrl(`http://localhost:6949/api/Obra`)
+      const data = await this.fetchUrl(`http://api.teatrogaleguista.work.gd/api/Obra`)
       if (data) this.obras = data
     },
     async fetchFunciones(obraId: number) {
-      const data = await this.fetchUrl(`http://localhost:6949/api/Funcion/obra/` + obraId)
+      const data = await this.fetchUrl(
+        `http://api.teatrogaleguista.work.gd/api/Funcion/obra/` + obraId
+      )
       if (data) this.funciones = data
     },
     async modificarObras(obra: Obra) {
@@ -67,7 +71,7 @@ export const useObrasStore = defineStore('obras', {
         redirect: 'follow'
       }
 
-      fetch('http://localhost:6949/api/Obra', requestOptions)
+      fetch('http://api.teatrogaleguista.work.gd/api/Obra', requestOptions)
         .then((response) => response.text())
         .then((result) => {
           return result
@@ -93,7 +97,7 @@ export const useObrasStore = defineStore('obras', {
         redirect: 'follow'
       }
 
-      fetch('http://localhost:6949/api/Obra', requestOptions)
+      fetch('http://api.teatrogaleguista.work.gd/api/Obra', requestOptions)
         .then((response) => response.text())
         .then((result) => console.log(result))
         .catch((error) => console.error(error))
