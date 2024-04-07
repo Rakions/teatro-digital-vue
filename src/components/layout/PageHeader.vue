@@ -6,6 +6,8 @@
           <div class="header_interestLinks">
             <a href="/">Funciones</a>
             <a href="notFound">Ofertas</a>
+            <a href="/login">Iniciar Sesion</a>
+            <a href="/dashboard">Admin</a>
           </div>
         </li>
         <li class="header_li">
@@ -37,6 +39,7 @@
           <div class="header_interestLinks">
             <a href="/">TODAS LAS FUNCIONES</a>
             <a href="notFound">OFERTAS</a>
+            <a href="/login">Iniciar Sesion</a>
           </div>
         </li>
       </ul>
