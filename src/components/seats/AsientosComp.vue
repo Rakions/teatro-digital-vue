@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Asiento } from '@/utils/interfaces';
 import { ref, onMounted } from 'vue';
-import { defineEmits } from 'vue';
+import { defineEmits, defineProps } from 'vue';
 
 const props = defineProps({
     asientosFiltrados: {
@@ -12,15 +12,14 @@ const props = defineProps({
 const emits = defineEmits(['update:asientos'])
 const asientosSeleccionados = ref<number[]>([])
 
-
-
-interface Circle {
+interface Seat {
     color: string;
     original: string;
     reservado: boolean;
+    id: number;
 }
 
-const grid = ref<Circle[][]>([]);
+const grid = ref<Seat[][]>([]);
 const selectedSeatIds = ref(new Set<number>());
 
 const initializeGrid = () => {
@@ -31,24 +30,24 @@ const initializeGrid = () => {
             return {
                 color: isReserved ? 'red' : '#cda881',
                 original: '#cda881',
-                reservado: isReserved
+                reservado: isReserved,
+                id: seatId
             };
         })
     );
 };
 
 const toggleColor = (rowIndex: number, columnIndex: number) => {
-    const circle = grid.value[rowIndex][columnIndex];
-    const seatId = rowIndex * grid.value[0].length + columnIndex + 1;
+    const seat = grid.value[rowIndex][columnIndex];
 
-    if (!circle.reservado) {
-        circle.color = circle.color === 'green' ? circle.original : 'green';
-        grid.value[rowIndex][columnIndex] = { ...circle };
+    if (!seat.reservado) {
+        seat.color = seat.color === 'green' ? seat.original : 'green';
+        grid.value[rowIndex][columnIndex] = { ...seat };
 
-        if (circle.color === 'green') {
-            selectedSeatIds.value.add(seatId);
+        if (seat.color === 'green') {
+            selectedSeatIds.value.add(seat.id);
         } else {
-            selectedSeatIds.value.delete(seatId);
+            selectedSeatIds.value.delete(seat.id);
         }
     }
 };
@@ -64,11 +63,11 @@ function agregarReservasLista() {
 
     selectedSeatIds.value.clear();
     grid.value.forEach((row, rowIndex) => {
-        row.forEach((circle, columnIndex) => {
-            if (!circle.reservado) {
-                circle.color = circle.original;
+        row.forEach((seat, columnIndex) => {
+            if (!seat.reservado) {
+                seat.color = seat.original;
             }
-            grid.value[rowIndex][columnIndex] = { ...circle };
+            grid.value[rowIndex][columnIndex] = { ...seat };
         });
     });
 }
@@ -87,10 +86,22 @@ function emitReservarAsientos(asientos: number[]) {
                 <text x="150" y="20" fill="white" font-size="14" text-anchor="middle">ESCENARIO</text>
             </svg>
             <div v-for="(row, rowIndex) in grid" :key="'row-' + rowIndex" class="grid-row">
-                <svg v-for="(circle, columnIndex) in row" :key="'circle-' + rowIndex + '-' + columnIndex"
-                    class="grid-item" width="50" height="50" @click="toggleColor(rowIndex, columnIndex)">
-                    <circle :id="'' + (rowIndex * grid[0].length + columnIndex + 1)" cx="25" cy="25" r="20"
-                        :fill="circle.color" class="circulo" />
+                <svg v-for="(seat, columnIndex) in row" :key="'seat-' + rowIndex + '-' + columnIndex" class="grid-item"
+                    width="50" height="70" viewBox="0 0 160 120" @click="toggleColor(rowIndex, columnIndex)">
+                    <rect x="10" y="10" width="120" height="90" rx="15" ry="15" :fill="seat.color" stroke="black"
+                        stroke-width="2" />
+                    <rect x="10" y="120" width="20" height="40" rx="0" ry="0" :fill="seat.color" stroke="black"
+                        stroke-width="2" />
+                    <rect x="110" y="120" width="20" height="40" rx="0" ry="0" :fill="seat.color" stroke="black"
+                        stroke-width="2" />
+                    <rect x="10" y="65" width="120" height="70" rx="0" ry="0" :fill="seat.color" stroke="black"
+                        stroke-width="2" />
+                    <rect x="10" y="115" width="120" height="20" rx="0" ry="0" :fill="seat.color" stroke="black"
+                        stroke-width="2" />
+                    <rect x="0" y="65" width="20" height="60" rx="0" ry="0" :fill="seat.color" stroke="black"
+                        stroke-width="2" />
+                    <rect x="120" y="65" width="20" height="60" rx="0" ry="0" :fill="seat.color" stroke="black"
+                        stroke-width="2" />
                 </svg>
             </div>
         </div>
@@ -103,29 +114,9 @@ function emitReservarAsientos(asientos: number[]) {
 <style scoped>
 .asientos_wrapper {
     display: flex;
-    flex-direction: column;
-    width: 70%;
     align-items: center;
     justify-content: center;
-}
-
-.boton_reservar {
-    width: 50%;
-}
-
-.grid-container {
-    display: flex;
+    width: 70%;
     flex-direction: column;
-    align-items: center;
-    /* Center the grid container */
-}
-
-.grid-row {
-    display: flex;
-}
-
-.grid-item {
-    margin: 5px;
-    cursor: pointer;
 }
 </style>
