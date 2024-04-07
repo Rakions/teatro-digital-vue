@@ -10,7 +10,7 @@ export const useAsientosStore = defineStore('asientos', {
       myHeaders.append('Content-Type', 'application/json')
       myHeaders.append(
         'Authorization',
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMTAxIiwiZW1haWwiOiJ0b3RpdG9tYXJyYW5vMyIsInJvbGUiOiIxIiwibmJmIjoxNzEyNDM3NzgwLCJleHAiOjE3MTI0NDQ5ODAsImlhdCI6MTcxMjQzNzc4MCwiaXNzIjoiVGVhdHJvR2FsZWd1aXN0YSIsImF1ZCI6IlVzdWFyaW9zVGVhdHJvR2FsZWd1aXN0YSJ9.ygbqQrMwqVkO3tf1x9W8iKYHWB0gOgUQ9BcGjmFUJjg'
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMTAxIiwiZW1haWwiOiJ0b3RpdG9tYXJyYW5vMyIsInJvbGUiOiIxIiwibmJmIjoxNzEyNDk4NjczLCJleHAiOjE3MTI1MDU4NzMsImlhdCI6MTcxMjQ5ODY3MywiaXNzIjoiVGVhdHJvR2FsZWd1aXN0YSIsImF1ZCI6IlVzdWFyaW9zVGVhdHJvR2FsZWd1aXN0YSJ9.dyOZ7lv1VjcLu6-SqDJyiW4rc-sRjlR-QT1nrLCrKP4'
       )
 
       asientos.forEach((asiento) => {

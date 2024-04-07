@@ -52,7 +52,6 @@ async function purchaseSeats(asientos: number[]) {
     asientoFetch.push({ "funcionID": funcionId.value, "userID": 1, "asiento": asiento })
   })
   if (asientoFetch.length > 0) {
-
     obtenerPrecio(funcionId.value)
     asientosBool.value = false;
     confirmarAsientos.value = true;
