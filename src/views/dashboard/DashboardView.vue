@@ -2,14 +2,18 @@
 import { ref, onMounted, computed } from 'vue'
 import Menu from '@/components/Dashboard/MenuDashboard.vue'
 import { useObrasStore } from '@/stores/obrasStore'
-import type { Obra, UsuarioFetchDashboard } from '@/utils/interfaces';
+import type { Funcion, Obra, UsuarioFetchDashboard } from '@/utils/interfaces';
 import TablaObras from '@/components/Dashboard/TablaObras.vue';
 import { useUserStore } from '@/stores/userStore';
 import TablaUsuarios from '@/components/Dashboard/TablaUsuarios.vue';
+import TablaFunciones from '@/components/Dashboard/TablaFunciones.vue';
+import { useFuncionesStore } from '@/stores/funcionesStore';
 const obrasStore = useObrasStore();
 const userStore = useUserStore();
+const funcionesStore = useFuncionesStore()
 const usuariosMostrar = ref(false);
 const obrasMostrar = ref(true)
+const funcionMostrar = ref(false)
 
 onMounted(async () => {
   await obrasStore.fetchAllObras().then(() => {
@@ -18,15 +22,20 @@ onMounted(async () => {
   await userStore.fetchAllUsers().then(() => {
     usuarios.value = userStore.usuarios
   })
+  await funcionesStore.getAllFunciones().then(() => {
+    funciones.value = funcionesStore.funciones;
+  })
 })
 
 function handleMostrarTabla(tabla: any) {
   usuariosMostrar.value = tabla === 'usuarios';
   obrasMostrar.value = tabla === 'obras';
+  funcionMostrar.value = tabla === 'funciones'
 }
 
 const obras = ref<Obra[]>([])
 const usuarios = ref<UsuarioFetchDashboard[]>([]);
+const funciones = ref<Funcion[]>([])
 
 const obrasConDescripcionCorta = computed(() => {
   return obras.value.map((obra) => ({
@@ -45,6 +54,7 @@ const obrasConDescripcionCorta = computed(() => {
     <div class="table_wrapper">
       <TablaObras v-if="obrasMostrar" :obraProp="obras" :obraCorta="obrasConDescripcionCorta" />
       <TablaUsuarios v-if="usuariosMostrar" :usuariosProp="usuarios" />
+      <TablaFunciones v-if="funcionMostrar" :funcionProp="funciones" />
     </div>
   </div>
 </template>

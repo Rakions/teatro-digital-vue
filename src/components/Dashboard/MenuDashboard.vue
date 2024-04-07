@@ -21,7 +21,7 @@ const emit = defineEmits(['mostrarTabla']);
                     <span>Obras</span>
                 </a>
             </li>
-            <li class="lista_enlaces_elemento">
+            <li class="lista_enlaces_elemento" @click="emit('mostrarTabla', 'funciones')">
                 <a href="#">
                     <i class="fa-solid fa-ticket"></i>
                     <span>Funciones</span>

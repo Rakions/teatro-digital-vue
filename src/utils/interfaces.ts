@@ -10,7 +10,7 @@ export interface Funcion {
   obraID: number
   salaID: number
   fechaHora: string
-  precio: number | null
+  precio: number
 }
 
 export interface Reserva {
@@ -69,4 +69,11 @@ export interface UsuarioUpdate {
   telefono: string
   contra: string
   rol: 0 | 1
+}
+
+export interface CreateFuncion {
+  obraID: number
+  salaID: number
+  fechaHora: string
+  precio: number
 }
