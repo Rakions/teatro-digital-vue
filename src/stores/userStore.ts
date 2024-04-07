@@ -29,7 +29,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const response = await fetch(
-          'https://api.teatrogaleguista.work.gd/api/Sesion/Registrar',
+          'http://api.teatrogaleguista.work.gd/api/Sesion/Registrar',
           requestOptions
         )
         const result = await response.json()
@@ -62,7 +62,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const response = await fetch(
-          'https://api.teatrogaleguista.work.gd/api/Sesion/Iniciar',
+          'http://api.teatrogaleguista.work.gd/api/Sesion/Iniciar',
           requestOptions
         )
         const result = await response.json()
@@ -79,7 +79,7 @@ export const useUserStore = defineStore('user', {
       }
       try {
         const reponse = await fetch(
-          'https://api.teatrogaleguista.work.gd/api/Sesion/usuario/' + getToken(),
+          'http://api.teatrogaleguista.work.gd/api/Sesion/usuario/' + getToken(),
           requestOptions
         )
         const result = await reponse.json()
@@ -101,7 +101,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const response = await fetch(
-          'https://api.teatrogaleguista.work.gd/api/Usuario',
+          'http://api.teatrogaleguista.work.gd/api/Usuario',
           requestOptions
         )
         const result = await response.json()
@@ -134,7 +134,7 @@ export const useUserStore = defineStore('user', {
 
       try {
         const response = await fetch(
-          'https://api.teatrogaleguista.work.gd/api/Usuario',
+          'http://api.teatrogaleguista.work.gd/api/Usuario',
           requestOptions
         )
         const result = await response.json()
