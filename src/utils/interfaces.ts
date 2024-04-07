@@ -42,3 +42,13 @@ export interface RegisterParams {
   contrasena: string
   rol: 0
 }
+
+export interface Usuario {
+  userID: number
+  email: string
+  contra: string
+  token: ''
+  fechaInicio: ''
+  ip: ''
+  dispositivo: ''
+}

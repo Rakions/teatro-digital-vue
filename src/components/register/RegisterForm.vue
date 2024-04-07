@@ -42,7 +42,6 @@ async function handleSubmit() {
         const response = await userStore.registerUser(params);
         if (response.token) {
             localStorage.setItem('userToken', response.token);
-            console.log('Token almacenado con éxito.');
             alert('Registrado con exito')
             router.replace('/')
         } else {

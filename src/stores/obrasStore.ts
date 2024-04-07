@@ -70,7 +70,9 @@ export const useObrasStore = defineStore('obras', {
 
       fetch('http://localhost:6949/api/Obra', requestOptions)
         .then((response) => response.text())
-        .then((result) => console.log(result))
+        .then((result) => {
+          return result
+        })
         .catch((error) => console.error(error))
     },
     async crearObra(obra: Obra) {

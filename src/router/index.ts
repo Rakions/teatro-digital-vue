@@ -7,6 +7,7 @@ import PurchaseCompletedView from '../views/PurchaseCompletedView.vue'
 import PurchasePageView from '../views/PurchasePageView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import DashboardView from '@/views/dashboard/DashboardView.vue'
+import LoginView from '@/views/LoginView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/register',
       name: 'registerpage',
       component: RegisterView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     },
     {
       path: '/dashboard',
