@@ -25,3 +25,11 @@ export interface Asiento {
   userID: number
   asiento: number
 }
+
+export interface Obra {
+  obraID: number
+  titulo: string
+  descripcion: string
+  categoriaID: number
+  imagen: string
+}
