@@ -43,13 +43,15 @@ function crearUsuario() {
         return;
     }
 
+    const rolValidado = usuarioInfoModificar.value.rol === 0 || usuarioInfoModificar.value.rol === 1 ? usuarioInfoModificar.value.rol : 0;
+
     const params: RegisterParams = {
         nombre: usuarioInfoModificar.value.nombre,
         apellido: usuarioInfoModificar.value.apellido,
         email: usuarioInfoModificar.value.email,
         telefono: usuarioInfoModificar.value.telefono,
         contrasena: usuarioInfoModificar.value.contrasena,
-        rol: usuarioInfoModificar.value.rol
+        rol: rolValidado
     };
 
     usuariosStore.registerUser(params)
@@ -66,13 +68,14 @@ function crearUsuario() {
 
 
 function guardarUsuario() {
+    const rolValidado = usuarioInfoModificar.value.rol === 0 || usuarioInfoModificar.value.rol === 1 ? usuarioInfoModificar.value.rol : 0;
     let params: UsuarioUpdate = {
         nombre: usuarioInfoModificar.value.nombre,
         apellido: usuarioInfoModificar.value.apellido,
         email: usuarioInfoModificar.value.email,
         telefono: usuarioInfoModificar.value.telefono,
         contra: usuarioInfoModificar.value.contrasena,
-        rol: usuarioInfoModificar.value.rol
+        rol: rolValidado
     }
     usuariosStore.actualizaUser(params);
     dialog.value = false;

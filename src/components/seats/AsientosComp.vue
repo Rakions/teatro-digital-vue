@@ -4,7 +4,10 @@ import { ref, onMounted } from 'vue';
 import { defineEmits } from 'vue';
 
 const props = defineProps({
-    asientosFiltrados: Array as () => Asiento[]
+    asientosFiltrados: {
+        type: Array as () => Asiento[],
+        default: () => []
+    }
 });
 const emits = defineEmits(['update:asientos'])
 const asientosSeleccionados = ref<number[]>([])
