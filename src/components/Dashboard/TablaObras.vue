@@ -50,7 +50,14 @@ function guardarObra() {
 }
 
 function crearObra() {
+    if (!obraInfoModificar.value.titulo || !obraInfoModificar.value.descripcion) {
+        alert('Por favor, complete el título y la descripción de la obra.');
+        return;
+    }
 
+    obrasStore.crearObra(obraInfoModificar.value);
+    obraInfoModificar.value = { obraID: 0, titulo: '', descripcion: '', categoriaID: 0, imagen: '' };
+    dialogCrear.value = false;
 }
 
 </script>

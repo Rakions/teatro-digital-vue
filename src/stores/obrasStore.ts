@@ -1,4 +1,5 @@
 import type { Funcion, Obra } from '@/utils/interfaces'
+import { getToken } from '@/utils/utils'
 import type { RequestOptions } from 'https'
 import { defineStore } from 'pinia'
 
@@ -50,10 +51,7 @@ export const useObrasStore = defineStore('obras', {
     async modificarObras(obra: Obra) {
       const myHeaders = new Headers()
       myHeaders.append('Content-Type', 'application/json')
-      myHeaders.append(
-        'Authorization',
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjZXJ0c2VyaWFsbnVtYmVyIjoiMTAxIiwiZW1haWwiOiJ0b3RpdG9tYXJyYW5vMyIsInJvbGUiOiIxIiwibmJmIjoxNzEyNTA0MTI2LCJleHAiOjE3MTI1MTEzMjYsImlhdCI6MTcxMjUwNDEyNiwiaXNzIjoiVGVhdHJvR2FsZWd1aXN0YSIsImF1ZCI6IlVzdWFyaW9zVGVhdHJvR2FsZWd1aXN0YSJ9.4ZqDc5-C9SYinQLU8IbznvH1FDqosgSevlaKF206zdQ'
-      )
+      myHeaders.append('Authorization', 'Bearer ' + getToken())
 
       const raw = JSON.stringify({
         obraID: obra.obraID,
@@ -65,6 +63,30 @@ export const useObrasStore = defineStore('obras', {
 
       const requestOptions: RequestOptions = {
         method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      }
+
+      fetch('http://localhost:6949/api/Obra', requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error))
+    },
+    async crearObra(obra: Obra) {
+      const myHeaders = new Headers()
+      myHeaders.append('Content-Type', 'application/json')
+      myHeaders.append('Authorization', 'Bearer ' + getToken())
+
+      const raw = JSON.stringify({
+        titulo: obra.titulo,
+        descripcion: obra.descripcion,
+        categoriaID: obra.categoriaID,
+        imagen: obra.imagen
+      })
+
+      const requestOptions: RequestOptions = {
+        method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'

@@ -24,8 +24,6 @@ const obrasConDescripcionCorta = computed(() => {
         : obra.descripcion
   }))
 })
-
-
 </script>
 
 <template>

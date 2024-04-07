@@ -23,3 +23,11 @@ export function formatDateTime(dateTimeString: string): string {
 
   return `${day} ${month} ${hours}:${minutes}`
 }
+
+export function getToken() {
+  if (localStorage.getItem('userToken')) {
+    const token = localStorage.getItem('userToken')
+    console.log(token)
+    return token
+  }
+}
