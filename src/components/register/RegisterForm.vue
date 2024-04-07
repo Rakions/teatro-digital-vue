@@ -1,102 +1,65 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useUserStore } from '@/stores/userStore';
+import InputText from 'primevue/inputtext';
+import type { RegisterParams } from '@/utils/interfaces'
 const userStore = useUserStore();
 
-interface RegisterParams {
-    nombre: string,
-    apellido: string,
-    email: string,
-    telefono: string,
-    contrasena: string,
-    rol: 0
-}
-
 var errors = ref<string | null>(null);
+const nombre = ref('');
+const apellido = ref('');
+const email = ref('');
+const contrasena = ref('');
+const contrasena2 = ref('');
 
 function handleSubmit() {
-    const nameInput = document.querySelector<HTMLInputElement>('input[name="name"]')!;
-    const surnameInput = document.querySelector<HTMLInputElement>('input[name="surname"]')!;
-    const emailInput = document.querySelector<HTMLInputElement>('input[name="email"]')!;
-    const passwordInput = document.querySelector<HTMLInputElement>('input[name="password"]')!;
-    const password2Input = document.querySelector<HTMLInputElement>('input[name="password2"]')!;
-
-    if (!nameInput || !surnameInput || !emailInput || !passwordInput || !password2Input) {
-        alert('Algunos elementos del formulario no se pueden encontrar en el documento.');
+    if (!nombre.value || !apellido.value || !email.value || !contrasena.value || !contrasena2.value) {
+        errors.value = "Todos los campos son obligatorios.";
         return;
     }
 
-    const campos = [nameInput, surnameInput, emailInput, passwordInput, password2Input];
-    const camposValidos = validarCamposNoVacios(campos);
-
-    if (!camposValidos) {
-        errors.value = "Algunos campos están vacíos, rellénalos para continuar."
+    if (contrasena.value.length < 12) {
+        errors.value = "La contraseña tiene que tener un mínimo de 12 caracteres.";
         return;
     }
-    if (passwordInput.value.length < 12 || password2Input.value.length < 12) {
-        errors.value = "La contraseña tiene que tener un mínimo de 12 caracteres"
+
+    if (contrasena.value !== contrasena2.value) {
+        errors.value = "Las contraseñas no coinciden.";
+        return;
     }
 
     const params: RegisterParams = {
-        nombre: nameInput.value,
-        apellido: surnameInput.value,
-        email: emailInput.value,
-        telefono: "123",
-        contrasena: passwordInput.value,
-        rol: 0
+        nombre: nombre.value,
+        apellido: apellido.value,
+        email: email.value,
+        contrasena: contrasena.value,
+        rol: 0,
+        telefono: "0"
     }
 
-    userStore.registerUser(params);
+    userStore.registerUser(params)
+
 }
-
-function validarCamposNoVacios(elementos: HTMLInputElement[]): boolean {
-    let todosLosCamposSonValidos = true;
-
-    for (const elemento of elementos) {
-        if (elemento.value.trim() === '') {
-            todosLosCamposSonValidos = false;
-            elemento.classList.add('campo-invalido');
-        } else {
-            elemento.classList.remove('campo-invalido');
-        }
-    }
-
-    return todosLosCamposSonValidos;
-}
-
 </script>
 
 <template>
-    <form action="" class="register_form" @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" class="register_form">
         <h2>Registro</h2>
         <div class="form_inline">
-            <label for="name" class="form_label">
-                <span>Nombre *</span>
-                <input type="text" name="name" class="form_input" placeholder="Tu nombre aquí...">
-            </label>
-            <label for="surname" class="form_label">
-                <span>Apellido *</span>
-                <input type="text" name="surname" class="form_input" placeholder="Tu apellido aquí...">
-            </label>
+            <InputText label="Nombre *" v-model="nombre" name="name" placeholder="Tu nombre aquí..." />
+            <InputText label="Apellido *" v-model="apellido" name="surname" placeholder="Tu apellido aquí..." />
         </div>
-        <label for="email" class="form_label">
-            <span>Email *</span>
-            <input type="mail" name="email" class="form_input" placeholder="Tu correo aquí..." required>
-        </label>
-        <label for="password" class="form_label">
-            <span>Contraseña *</span>
-            <input type="password" name="password" class="form_input" placeholder="Tu contraseña aquí...">
-        </label>
-        <label for="password2" class="form_label">
-            <span>Confirmar Contraseña *</span>
-            <input type="password" name="password2" class="form_input" placeholder="Confirmar contraseña...">
-        </label>
+        <InputText label="Email *" type="email" v-model="email" name="email" placeholder="Tu correo aquí..." required />
+        <InputText label="Contraseña *" type="password" v-model="contrasena" name="password"
+            placeholder="Tu contraseña aquí..." />
+        <InputText label="Confirmar Contraseña *" type="password" v-model="contrasena2" name="password2"
+            placeholder="Confirmar contraseña..." />
         <small class="error_message" v-if="errors">{{ errors }}</small>
-        <small>¿Ya tienes una cuenta? <a href="/login" class="login"> Inicia sesión</a></small>
+        <small>¿Ya tienes una cuenta? <a href="/login" class="login">Inicia sesión</a></small>
         <button class="form_submit" type="submit">Registrar</button>
     </form>
-
 </template>
+
 
 <style scoped>
 .register_form {

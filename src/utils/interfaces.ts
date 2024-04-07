@@ -33,3 +33,12 @@ export interface Obra {
   categoriaID: number
   imagen: string
 }
+
+export interface RegisterParams {
+  nombre: string
+  apellido: string
+  email: string
+  telefono: string
+  contrasena: string
+  rol: 0
+}

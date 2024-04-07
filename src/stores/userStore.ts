@@ -1,14 +1,6 @@
 import type { RequestOptions } from 'https'
 import { defineStore } from 'pinia'
-
-interface RegisterParams {
-  nombre: string
-  apellido: string
-  email: string
-  telefono: string
-  contrasena: string
-  rol: 0
-}
+import type { RegisterParams } from '@/utils/interfaces'
 
 export const useUserStore = defineStore('user', {
   state: () => ({}),

@@ -7,9 +7,9 @@ import './assets/styles/purchasePage.css'
 import './assets/styles/dashboard.css'
 
 import { createApp } from 'vue'
-import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/aura-light-noir/theme.css'
-import ToastService from 'primevue/toastservice';
+import PrimeVue from 'primevue/config'
+import 'primevue/resources/themes/lara-light-blue/theme.css'
+import ToastService from 'primevue/toastservice'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
@@ -54,9 +54,8 @@ app.use(createPinia())
 app.use(router)
 app.use(i18n)
 app.use(PrimeVue, {
-  pt: {
-  }
+  pt: {}
 })
-app.use(ToastService);
+app.use(ToastService)
 
 app.use(vuetify).mount('#app')
