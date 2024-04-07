@@ -7,8 +7,6 @@ import type { Obra } from '@/utils/interfaces';
 import TablaObras from '@/components/Dashboard/TablaObras.vue';
 const obrasStore = useObrasStore()
 
-
-
 onMounted(() => {
   obrasStore.fetchAllObras().then(() => {
     obras.value = obrasStore.obras
@@ -34,7 +32,7 @@ const obrasConDescripcionCorta = computed(() => {
   <div class="main_dashboard">
     <Menu />
     <div class="table_wrapper">
-      <TablaObras :obra="obrasConDescripcionCorta" />
+      <TablaObras :obraProp="obras" :obraCorta="obrasConDescripcionCorta" />
     </div>
   </div>
 </template>
