@@ -14,7 +14,7 @@ export const useUserStore = defineStore('user', {
         email: params.email,
         telefono: params.telefono,
         contra: params.contrasena,
-        rol: 0
+        rol: 1
       })
 
       const requestOptions: RequestInit = {
