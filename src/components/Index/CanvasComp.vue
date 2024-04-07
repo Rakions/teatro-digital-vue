@@ -18,6 +18,10 @@ onMounted(() => {
     if (canvasRef.value) {
         const canvas = canvasRef.value;
         ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Failed to get the canvas context');
+            return;
+        }
 
         for (let i = 0; i < numStars; i++) {
             stars.push({
@@ -33,17 +37,17 @@ onMounted(() => {
 });
 
 function drawStars(): void {
+    const context = ctx!;
 
-    if (ctx && canvasRef.value) {
-
+    if (canvasRef.value) {
         const canvas = canvasRef.value;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
         stars.forEach(star => {
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-            ctx.fill();
+            context.fillStyle = 'white';
+            context.beginPath();
+            context.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            context.fill();
 
             star.y += star.speed;
             if (star.y > canvas.height) {
@@ -56,6 +60,8 @@ function drawStars(): void {
     }
 }
 </script>
+
+
 
 <template>
     <canvas class="canvasRef" ref="canvasRef" width="800" height="600"></canvas>

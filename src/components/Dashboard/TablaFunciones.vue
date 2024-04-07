@@ -60,9 +60,8 @@ async function crearFuncion() {
     <v-btn @click="abrirCrearFuncion" class="crear_funcion">Crear Función</v-btn>
     <v-dialog v-model="dialogCrear" persistent max-width="600px">
         <v-card>
-            <v-card-title>
+            <v-card-title class="titulo_tarjeta">
                 Crear Nueva Función
-                <v-spacer></v-spacer>
                 <v-btn icon @click="dialogCrear = false">
                     X
                 </v-btn>
@@ -70,19 +69,20 @@ async function crearFuncion() {
             <v-card-text class="texto_tarjeta">
                 <label for="obraID">
                     <span>Obra ID: </span>
-                    <input type="number" name="obraID" v-model="funcionInfoModificar.obraID">
+                    <v-text-field type="number" name="obraID" v-model="funcionInfoModificar.obraID"></v-text-field>
                 </label>
                 <label for="salaID">
                     <span>Sala ID: </span>
-                    <input type="number" name="salaID" v-model="funcionInfoModificar.salaID">
+                    <v-text-field type="number" name="salaID" v-model="funcionInfoModificar.salaID"></v-text-field>
                 </label>
                 <label for="fechaHora">
                     <span>Fecha y Hora: </span>
-                    <input type="datetime-local" name="fechaHora" v-model="funcionInfoModificar.fechaHora">
+                    <v-text-field type="datetime-local" name="fechaHora"
+                        v-model="funcionInfoModificar.fechaHora"></v-text-field>
                 </label>
                 <label for="precio">
                     <span>Precio: </span>
-                    <input type="number" name="precio" v-model="funcionInfoModificar.precio">
+                    <v-text-field type="number" name="precio" v-model="funcionInfoModificar.precio"></v-text-field>
                 </label>
             </v-card-text>
             <v-card-actions>
@@ -117,9 +117,8 @@ async function crearFuncion() {
     </v-table>
     <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
-            <v-card-title>
+            <v-card-title class="titulo_tarjeta">
                 Modificar Función
-                <v-spacer></v-spacer>
                 <v-btn icon @click="dialog = false">
                     X
                 </v-btn>
@@ -127,19 +126,20 @@ async function crearFuncion() {
             <v-card-text class="texto_tarjeta">
                 <label for="obraID">
                     <span>Obra ID: </span>
-                    <input type="number" name="obraID" v-model="funcionInfoModificar.obraID">
+                    <v-text-field type="number" name="obraID" v-model="funcionInfoModificar.obraID"></v-text-field>
                 </label>
                 <label for="salaID">
                     <span>Sala ID: </span>
-                    <input type="number" name="salaID" v-model="funcionInfoModificar.salaID">
+                    <v-text-field type="number" name="salaID" v-model="funcionInfoModificar.salaID"></v-text-field>
                 </label>
                 <label for="fechaHora">
                     <span>Fecha y Hora: </span>
-                    <input type="datetime-local" name="fechaHora" v-model="funcionInfoModificar.fechaHora">
+                    <v-text-field type="datetime-local" name="fechaHora"
+                        v-model="funcionInfoModificar.fechaHora"></v-text-field>
                 </label>
                 <label for="precio">
                     <span>Precio: </span>
-                    <input type="number" name="precio" v-model="funcionInfoModificar.precio">
+                    <v-text-field type="number" name="precio" v-model="funcionInfoModificar.precio"></v-text-field>
                 </label>
             </v-card-text>
             <v-card-actions>
@@ -147,6 +147,13 @@ async function crearFuncion() {
                 <v-btn color="blue darken-1" @click="guardarFuncion">Guardar</v-btn>
             </v-card-actions>
         </v-card>
-
     </v-dialog>
 </template>
+
+<style scoped>
+.titulo_tarjeta {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+</style>
