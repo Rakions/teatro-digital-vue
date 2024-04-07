@@ -81,12 +81,11 @@ function guardarUsuario() {
 
 <template>
     <div>
-        <button @click="abrirCrearUsuario" class="crear_usuario">Crear Usuario</button>
+        <v-btn @click="abrirCrearUsuario" class="crear_usuario">Crear Usuario</v-btn>
         <v-dialog v-model="dialogCrear" persistent max-width="600px">
             <v-card>
-                <v-card-title>
+                <v-card-title class="titulo_tarjeta">
                     Crear Nuevo Usuario
-                    <v-spacer></v-spacer>
                     <v-btn icon @click="dialogCrear = false">
                         X
                     </v-btn>
@@ -94,27 +93,29 @@ function guardarUsuario() {
                 <v-card-text class="texto_tarjeta">
                     <label for="nombre">
                         <span>Nombre: </span>
-                        <input type="text" name="nombre" v-model="usuarioInfoModificar.nombre">
+                        <v-text-field type="text" name="nombre" v-model="usuarioInfoModificar.nombre"></v-text-field>
                     </label>
                     <label for="apellido">
                         <span>Apellido: </span>
-                        <input type="text" name="apellido" v-model="usuarioInfoModificar.apellido">
+                        <v-text-field type="text" name="apellido"
+                            v-model="usuarioInfoModificar.apellido"></v-text-field>
                     </label>
                     <label for="email">
                         <span>Email: </span>
-                        <input type="email" name="email" v-model="usuarioInfoModificar.email">
+                        <v-text-field type="email" name="email" v-model="usuarioInfoModificar.email"></v-text-field>
                     </label>
                     <label for="telefono">
                         <span>Teléfono: </span>
-                        <input type="tel" name="telefono" v-model="usuarioInfoModificar.telefono">
+                        <v-text-field type="tel" name="telefono" v-model="usuarioInfoModificar.telefono"></v-text-field>
                     </label>
                     <label for="contrasena">
                         <span>Contraseña: </span>
-                        <input type="password" name="contrasena" v-model="usuarioInfoModificar.contrasena">
+                        <v-text-field type="password" name="contrasena"
+                            v-model="usuarioInfoModificar.contrasena"></v-text-field>
                     </label>
                     <label for="rol">
                         <span>Rol: </span>
-                        <input type="number" name="rol" v-model="usuarioInfoModificar.rol">
+                        <v-text-field type="number" name="rol" v-model="usuarioInfoModificar.rol"></v-text-field>
                     </label>
                 </v-card-text>
                 <v-card-actions>
@@ -151,9 +152,8 @@ function guardarUsuario() {
         </v-table>
         <v-dialog v-model="dialog" persistent max-width="600px">
             <v-card>
-                <v-card-title>
+                <v-card-title class="titulo_tarjeta">
                     Modificar Usuario
-                    <v-spacer></v-spacer>
                     <v-btn icon @click="dialog = false">
                         X
                     </v-btn>
@@ -161,27 +161,29 @@ function guardarUsuario() {
                 <v-card-text class="texto_tarjeta">
                     <label for="nombre">
                         <span>Nombre: </span>
-                        <input type="text" name="nombre" v-model="usuarioInfoModificar.nombre">
+                        <v-text-field type="text" name="nombre" v-model="usuarioInfoModificar.nombre"></v-text-field>
                     </label>
                     <label for="apellido">
                         <span>Apellido: </span>
-                        <input type="text" name="apellido" v-model="usuarioInfoModificar.apellido">
+                        <v-text-field type="text" name="apellido"
+                            v-model="usuarioInfoModificar.apellido"></v-text-field>
                     </label>
                     <label for="email">
                         <span>Email: </span>
-                        <input type="email" name="email" v-model="usuarioInfoModificar.email">
+                        <v-text-field type="email" name="email" v-model="usuarioInfoModificar.email"></v-text-field>
                     </label>
                     <label for="telefono">
                         <span>Teléfono: </span>
-                        <input type="tel" name="telefono" v-model="usuarioInfoModificar.telefono">
+                        <v-text-field type="tel" name="telefono" v-model="usuarioInfoModificar.telefono"></v-text-field>
                     </label>
                     <label for="contrasena">
                         <span>Contraseña: </span>
-                        <input type="password" name="contrasena" v-model="usuarioInfoModificar.contrasena">
+                        <v-text-field type="password" name="contrasena"
+                            v-model="usuarioInfoModificar.contrasena"></v-text-field>
                     </label>
                     <label for="rol">
                         <span>Rol: </span>
-                        <input type="number" name="rol" v-model="usuarioInfoModificar.rol">
+                        <v-text-field type="number" name="rol" v-model="usuarioInfoModificar.rol"></v-text-field>
                     </label>
                 </v-card-text>
                 <v-card-actions>
@@ -205,5 +207,11 @@ function guardarUsuario() {
 
 .texto_tarjeta label {
     margin-bottom: 10px;
+}
+
+.titulo_tarjeta {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 </style>

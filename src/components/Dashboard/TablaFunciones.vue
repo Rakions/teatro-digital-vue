@@ -57,7 +57,7 @@ async function crearFuncion() {
 </script>
 
 <template>
-    <button @click="abrirCrearFuncion" class="crear_funcion">Crear Función</button>
+    <v-btn @click="abrirCrearFuncion" class="crear_funcion">Crear Función</v-btn>
     <v-dialog v-model="dialogCrear" persistent max-width="600px">
         <v-card>
             <v-card-title>

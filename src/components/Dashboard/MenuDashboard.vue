@@ -4,10 +4,6 @@ const emit = defineEmits(['mostrarTabla']);
 
 <template>
     <aside>
-        <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="logo">
-            <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="#964B00" />
-        </svg>
-
         <ul class="lista_enlaces">
             <li class="lista_enlaces_elemento" @click="emit('mostrarTabla', 'usuarios')">
                 <a href="#">

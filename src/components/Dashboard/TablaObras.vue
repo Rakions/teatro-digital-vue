@@ -63,12 +63,11 @@ function crearObra() {
 </script>
 
 <template>
-    <button @click="abrirCrearObra" class="crear_obra">Crear Obra</button>
+    <v-btn @click="abrirCrearObra" class="crear_obra">Crear Obra</v-btn>
     <v-dialog v-model="dialogCrear" persistent max-width="600px">
         <v-card>
-            <v-card-title>
+            <v-card-title class="titulo_tarjeta">
                 Crear Nueva Obra
-                <v-spacer></v-spacer>
                 <v-btn icon @click="dialogCrear = false">
                     X
                 </v-btn>
@@ -76,19 +75,21 @@ function crearObra() {
             <v-card-text class="texto_tarjeta">
                 <label for="titulo">
                     <span>Titulo: </span>
-                    <input type="text" name="titulo" v-model="obraInfoModificar.titulo">
+                    <v-text-field v-model="obraInfoModificar.titulo" name="titulo" label="Titulo"></v-text-field>
                 </label>
                 <label for="descripcion">
                     <span>Descripcion: </span>
-                    <textarea name="descripcion" v-model="obraInfoModificar.descripcion"></textarea>
+                    <textarea v-model="obraInfoModificar.descripcion" name="descripcion" label="Descripcion" multi-line
+                        rows="3" />
                 </label>
                 <label for="categoria">
                     <span>Categoria: </span>
-                    <input type="number" name="categoria" min="0" max="2" v-model="obraInfoModificar.categoriaID">
+                    <v-text-field v-model="obraInfoModificar.categoriaID" name="categoria" label="Categoria"
+                        type="number"></v-text-field>
                 </label>
                 <label for="imagen">
                     <span>Imagen: </span>
-                    <input type="text" name="imagen" v-model="obraInfoModificar.imagen">
+                    <v-text-field v-model="obraInfoModificar.imagen" name="imagen" label="Imagen"></v-text-field>
                 </label>
             </v-card-text>
             <v-card-actions>
@@ -123,9 +124,8 @@ function crearObra() {
     </v-table>
     <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
-            <v-card-title>
+            <v-card-title class="titulo_tarjeta">
                 Modificar Obra
-                <v-spacer></v-spacer>
                 <v-btn icon @click="dialog = false">
                     X
                 </v-btn>
@@ -133,19 +133,21 @@ function crearObra() {
             <v-card-text class="texto_tarjeta">
                 <label for="titulo">
                     <span>Titulo: </span>
-                    <input type="text" name="titulo" v-model="obraInfoModificar.titulo">
+                    <v-text-field v-model="obraInfoModificar.titulo" name="titulo" label="Titulo"></v-text-field>
                 </label>
                 <label for="descripcion">
                     <span>Descripcion: </span>
-                    <textarea name="descripcion" v-model="obraInfoModificar.descripcion"></textarea>
+                    <textarea v-model="obraInfoModificar.descripcion" name="descripcion" label="Descripcion" multi-line
+                        rows="3" />
                 </label>
                 <label for="categoria">
                     <span>Categoria: </span>
-                    <input type="number" name="categoria" v-model="obraInfoModificar.categoriaID">
+                    <v-text-field v-model="obraInfoModificar.categoriaID" name="categoria" label="Categoria"
+                        type="number"></v-text-field>
                 </label>
                 <label for="imagen">
                     <span>Imagen: </span>
-                    <input type="text" name="imagen" v-model="obraInfoModificar.imagen">
+                    <v-text-field v-model="obraInfoModificar.imagen" name="imagen" label="Imagen"></v-text-field>
                 </label>
             </v-card-text>
             <v-card-actions>
@@ -193,10 +195,9 @@ textarea {
     width: 100%;
 }
 
-.crear_obra {
-    padding: 0.2rem 0.5rem;
-    background-color: var(--color-fondo-componentes);
-    border-radius: 3px;
-    margin-bottom: 3px;
+.titulo_tarjeta {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 </style>

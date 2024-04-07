@@ -51,6 +51,7 @@ async function handleSubmit() {
             <v-text-field label="Contraseña *" type="password" v-model="contrasena" placeholder="Tu contraseña aquí..."
                 required></v-text-field>
             <v-btn class="form_submit" type="submit" block>Iniciar Sesión</v-btn>
+
         </v-form>
         <small class="error_message" v-if="errors">{{ errors }}</small>
         <small>¿No tienes una cuenta? <a href="/register" class="register">Regístrate</a></small>
@@ -62,8 +63,20 @@ async function handleSubmit() {
 
 
 <style scoped>
+.login_form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-fondo-componentes);
+    border-radius: 10px;
+    gap: 1rem;
+}
+
 .mx-auto {
     padding: 1rem;
+    background: none;
 }
 
 .alerta {
