@@ -3,7 +3,8 @@ import { defineProps } from 'vue';
 
 const props = defineProps({
     titulo: String,
-    descripcion: String
+    descripcion: String,
+    imagen: String
 })
 </script>
 
@@ -11,7 +12,7 @@ const props = defineProps({
 
     <div class="seats_functionInfo">
         <div class="function">
-            <img src="#" alt="" />
+            <img :src="props.imagen" alt="" />
             <div class="function_title_desc">
                 <h2>{{ props.titulo }}</h2>
                 <p>{{ props.descripcion }}</p>

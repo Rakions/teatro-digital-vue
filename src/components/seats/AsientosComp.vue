@@ -94,9 +94,9 @@ function emitReservarAsientos(asientos: number[]) {
                 </svg>
             </div>
         </div>
-        <button class="boton_reservar" @click="agregarReservasLista">
+        <v-btn class="boton_reservar" @click="agregarReservasLista">
             Reservar
-        </button>
+        </v-btn>
     </div>
 </template>
 

@@ -24,7 +24,7 @@ export const useAsientosStore = defineStore('asientos', {
           redirect: 'follow'
         }
 
-        fetch('http://api.teatrogaleguista.work.gd/api/Reserva', requestOptions)
+        fetch('http://localhost:6949/api/Reserva', requestOptions)
           .then((response) => response.text())
           .then((result) => {})
           .catch((error) => console.error(error))

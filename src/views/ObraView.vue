@@ -81,7 +81,7 @@ watch(funcionId, (newVal) => {
   <TheHeader />
   <div class="seats">
     <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
-    <FunctionInfo class="functionInfo" :titulo="obra.titulo" :descripcion="obra.descripcion" />
+    <FunctionInfo class="functionInfo" :titulo="obra.titulo" :descripcion="obra.descripcion" :imagen="obra.imagen" />
     <FunctionList v-if="funcionesBool" :horas="horas" @update:funcion-id="updateFuncionId" />
     <AsientosComp v-if="asientosBool" :asientosFiltrados="asientosFiltrados" @update:asientos="purchaseSeatsEvent" />
     <ConfirmSeats v-if="confirmarAsientos" :asientos="idsAsientos" :precio="precio" @pagar="procederPago" />

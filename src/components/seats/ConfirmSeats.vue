@@ -15,12 +15,9 @@ const emit = defineEmits(['pagar'])
             </ul>
             <p>Por un total de {{ $props.precio }}€</p>
             <div class="botones_wrapper">
-                <button>
-                    Volver
-                </button>
-                <button @click="emit('pagar')">
+                <v-btn @click="emit('pagar')">
                     Proceder al pago
-                </button>
+                </v-btn>
             </div>
         </div>
     </div>

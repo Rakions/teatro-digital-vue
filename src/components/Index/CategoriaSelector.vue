@@ -53,7 +53,7 @@ getAllObras();
     <div class="mainPage_functionsList">
         <a @click="navigateObra(obra.obraID)" v-for="obra in obras" :key="obra.obraID" class="obra-item">
             <div class="function">
-                <img src="#" alt="">
+                <img :src="obra.imagen" alt="">
                 <div>
                     <h3>{{ obra.titulo }}</h3>
                     <p>Director: {{ obra.director }}</p>

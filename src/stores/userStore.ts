@@ -28,10 +28,7 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch(
-          'http://api.teatrogaleguista.work.gd/api/Sesion/Registrar',
-          requestOptions
-        )
+        const response = await fetch('http://localhost:6949/api/Sesion/Registrar', requestOptions)
         const result = await response.json()
         return result
       } catch (error) {
@@ -47,7 +44,10 @@ export const useUserStore = defineStore('user', {
         userID: user.userID,
         email: user.email,
         contra: user.contra,
-        token: user.token
+        token: user.token,
+        fechaInicio: user.fechaInicio,
+        ip: user.ip,
+        dispositivo: user.dispositivo
       })
 
       const requestOptions: RequestInit = {
@@ -58,10 +58,7 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch(
-          'http://api.teatrogaleguista.work.gd/api/Sesion/Iniciar',
-          requestOptions
-        )
+        const response = await fetch('http://localhost:6949/api/Sesion/Iniciar', requestOptions)
         const result = await response.json()
         return result
       } catch (error) {
@@ -76,7 +73,7 @@ export const useUserStore = defineStore('user', {
       }
       try {
         const reponse = await fetch(
-          'http://api.teatrogaleguista.work.gd/api/Sesion/usuario/' + getToken(),
+          'http://localhost:6949/api/Sesion/usuario/' + getToken(),
           requestOptions
         )
         const result = await reponse.json()
@@ -97,10 +94,7 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch(
-          'http://api.teatrogaleguista.work.gd/api/Usuario',
-          requestOptions
-        )
+        const response = await fetch('http://localhost:6949/api/Usuario', requestOptions)
         const result = await response.json()
         this.usuarios = result
       } catch (error) {
@@ -130,10 +124,7 @@ export const useUserStore = defineStore('user', {
       }
 
       try {
-        const response = await fetch(
-          'http://api.teatrogaleguista.work.gd/api/Usuario',
-          requestOptions
-        )
+        const response = await fetch('http://localhost:6949/api/Usuario', requestOptions)
         const result = await response.json()
         return result
       } catch (error) {

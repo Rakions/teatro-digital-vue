@@ -18,10 +18,7 @@ export const useFuncionesStore = defineStore('funciones', {
       }
 
       try {
-        const response = await fetch(
-          'http://api.teatrogaleguista.work.gd/api/Funcion',
-          requestOptions
-        )
+        const response = await fetch('http://localhost:6949/api/Funcion', requestOptions)
         const result = await response.json()
         this.funciones = result
       } catch (error) {
@@ -49,10 +46,7 @@ export const useFuncionesStore = defineStore('funciones', {
       }
 
       try {
-        const response = await fetch(
-          'http://api.teatrogaleguista.work.gd/api/Funcion',
-          requestOptions
-        )
+        const response = await fetch('http://localhost:6949/api/Funcion', requestOptions)
         const result = await response.json()
         return result
       } catch (error) {
@@ -80,7 +74,7 @@ export const useFuncionesStore = defineStore('funciones', {
         redirect: 'follow'
       }
 
-      await fetch('http://api.teatrogaleguista.work.gd/api/Funcion', requestOptions)
+      await fetch('http://localhost:6949/api/Funcion', requestOptions)
     }
   }
 })
