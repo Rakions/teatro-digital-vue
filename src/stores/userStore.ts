@@ -1,4 +1,3 @@
-import type { RequestOptions } from 'https'
 import { defineStore } from 'pinia'
 import type { RegisterParams } from '@/utils/interfaces'
 
@@ -18,17 +17,22 @@ export const useUserStore = defineStore('user', {
         rol: 1
       })
 
-      const requestOptions: RequestOptions = {
+      const requestOptions: RequestInit = {
         method: 'POST',
         headers: myHeaders,
         body: raw,
         redirect: 'follow'
       }
 
-      fetch('http://localhost:6949/api/Sesion/Registrar', requestOptions)
-        .then((response) => response.json())
-        .then((result) => {})
-        .catch((error) => console.error(error))
+      try {
+        const response = await fetch('http://localhost:6949/api/Sesion/Registrar', requestOptions)
+        const result = await response.json()
+        console.log(result)
+        return result
+      } catch (error) {
+        console.error('Error al registrar el usuario:', error)
+        throw error
+      }
     }
   }
 })

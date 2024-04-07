@@ -12,7 +12,7 @@ const email = ref('');
 const contrasena = ref('');
 const contrasena2 = ref('');
 
-function handleSubmit() {
+async function handleSubmit() {
     if (!nombre.value || !apellido.value || !email.value || !contrasena.value || !contrasena2.value) {
         errors.value = "Todos los campos son obligatorios.";
         return;
@@ -37,8 +37,17 @@ function handleSubmit() {
         telefono: "0"
     }
 
-    userStore.registerUser(params)
-
+    try {
+        const response = await userStore.registerUser(params);
+        if (response.token) {
+            localStorage.setItem('userToken', response.token);
+            console.log('Token almacenado con éxito.');
+        } else {
+            console.log('No se encontró token en la respuesta.');
+        }
+    } catch (error) {
+        console.error('Error al registrar el usuario:', error);
+    }
 }
 </script>
 
