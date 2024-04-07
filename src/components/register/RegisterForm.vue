@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useUserStore } from '@/stores/userStore';
 import InputText from 'primevue/inputtext';
 import type { RegisterParams } from '@/utils/interfaces'
+import router from '@/router';
 const userStore = useUserStore();
 
 var errors = ref<string | null>(null);
@@ -42,6 +43,8 @@ async function handleSubmit() {
         if (response.token) {
             localStorage.setItem('userToken', response.token);
             console.log('Token almacenado con éxito.');
+            alert('Registrado con exito')
+            router.replace('/')
         } else {
             console.log('No se encontró token en la respuesta.');
         }

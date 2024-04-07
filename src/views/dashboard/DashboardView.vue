@@ -49,8 +49,9 @@ const obrasConDescripcionCorta = computed(() => {
 
 .table_wrapper {
   width: 100%;
-  height: 100%;
   padding: 1rem;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 @media (min-width: 768px) {
