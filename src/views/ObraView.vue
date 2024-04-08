@@ -80,7 +80,7 @@ watch(funcionId, (newVal) => {
 <template>
   <TheHeader />
   <div class="seats">
-    <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+    <router-link to="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</router-link>
     <FunctionInfo class="functionInfo" :titulo="obra.titulo" :descripcion="obra.descripcion" :imagen="obra.imagen" />
     <FunctionList v-if="funcionesBool" :horas="horas" @update:funcion-id="updateFuncionId" />
     <AsientosComp v-if="asientosBool" :asientosFiltrados="asientosFiltrados" @update:asientos="purchaseSeatsEvent" />

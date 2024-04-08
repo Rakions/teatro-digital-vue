@@ -9,18 +9,18 @@
       </div>
       <div class="footer_column">
         <h2>QUIENES SOMOS</h2>
-        <a href="aboutUs">Quienes somos</a>
+        <router-link to="/aboutUs">Quienes somos</router-link>
       </div>
       <div class="footer_column">
         <h2>PROMOCIONES</h2>
-        <a href="notFound">Todas las promociones</a>
+        <router-link to="/notFound">Todas las promociones</router-link>
       </div>
       <div class="footer_column">
         <h2>NUESTRAS REDES</h2>
         <div class="footer_socials">
-          <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-square-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+          <router-link to="/"><i class="fa-brands fa-square-x-twitter"></i></router-link>
+          <router-link to="/"><i class="fa-brands fa-square-instagram"></i></router-link>
+          <router-link to="/"><i class="fa-brands fa-square-facebook"></i></router-link>
         </div>
       </div>
       <div class="footer_column">

@@ -6,31 +6,31 @@ const emit = defineEmits(['mostrarTabla']);
     <aside>
         <ul class="lista_enlaces">
             <li class="lista_enlaces_elemento" @click="emit('mostrarTabla', 'usuarios')">
-                <a href="#">
+                <router-link to="#">
                     <i class="fa-solid fa-user"></i>
                     <span>Usuarios</span>
-                </a>
+                </router-link>
             </li>
             <li class="lista_enlaces_elemento" @click="emit('mostrarTabla', 'obras')">
-                <a href="#">
+                <router-link to="#">
                     <i class="fa-solid fa-masks-theater"></i>
                     <span>Obras</span>
-                </a>
+                </router-link>
             </li>
             <li class="lista_enlaces_elemento" @click="emit('mostrarTabla', 'funciones')">
-                <a href="#">
+                <router-link to="#">
                     <i class="fa-solid fa-ticket"></i>
                     <span>Funciones</span>
-                </a>
+                </router-link>
             </li>
         </ul>
 
-        <a href="/" class="boton_salir">
+        <router-link to="/" class="boton_salir">
             <button>
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Salir</span>
             </button>
-        </a>
+        </router-link>
 
     </aside>
 </template>

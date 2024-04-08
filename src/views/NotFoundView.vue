@@ -13,7 +13,7 @@ import TheFooter from '../components/layout/PageFooter.vue'
           <h2>PÁGINA NO ENCONTRADA</h2>
           <div class="not_found_below">
             <span>Todavía estamos trabajando en esta parte, disculpen las molestias.</span>
-            <a href="/">Volver</a>
+            <router-link to="/">Volver</router-link>
           </div>
         </section>
       </main>

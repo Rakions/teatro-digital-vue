@@ -4,14 +4,14 @@
       <ul class="header_ul">
         <li class="header_li">
           <div class="header_interestLinks">
-            <a href="/">Funciones</a>
-            <a href="notFound">Ofertas</a>
-            <a href="/login">Iniciar Sesion</a>
-            <a href="/dashboard">Admin</a>
+            <router-link to="/">Funciones</router-link>
+            <router-link to="/notFound">Ofertas</router-link>
+            <router-link to="/login">Iniciar Sesión</router-link>
+            <router-link to="/dashboard">Admin</router-link>
           </div>
         </li>
         <li class="header_li">
-          <a href="/">
+          <router-link to="/">
             <svg class="header_logo" xmlns="http://www.w3.org/2000/svg">
               <g transform="translate(150, 50)">
                 <text x="0" y="-20" font-family="Lato, sans-serif" font-size="24" fill="#cda881"
@@ -24,7 +24,7 @@
                 <line x1="-125" y1="2" x2="125" y2="2" stroke="#4f4a45" stroke-width="3" />
               </g>
             </svg>
-          </a>
+          </router-link>
         </li>
         <li>
           <div class="header_information">
@@ -37,9 +37,9 @@
         </li>
         <li class="header_li">
           <div class="header_interestLinks">
-            <a href="/">TODAS LAS FUNCIONES</a>
-            <a href="notFound">OFERTAS</a>
-            <a href="/login">Iniciar Sesion</a>
+            <router-link to="/">TODAS LAS FUNCIONES</router-link>
+            <router-link to="/notFound">OFERTAS</router-link>
+            <router-link to="/login">Iniciar Sesion</router-link>
           </div>
         </li>
       </ul>

@@ -10,7 +10,7 @@ import FunctionInfo from '@/components/seats/FunctionInfo.vue';
 <template>
   <TheHeader />
   <div class="seats">
-    <a href="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+    <router-link to="/" class="seats_goBack"><i class="fa-solid fa-arrow-left"></i> Volver</router-link>
     <FunctionInfo />
     <Asientos />
   </div>
