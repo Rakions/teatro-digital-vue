@@ -47,10 +47,7 @@ export const useUserStore = defineStore('user', {
         userID: user.userID,
         email: user.email,
         contra: user.contra,
-        token: user.token,
-        fechaInicio: user.fechaInicio,
-        ip: user.ip,
-        dispositivo: user.dispositivo
+        token: user.token
       })
 
       const requestOptions: RequestInit = {
