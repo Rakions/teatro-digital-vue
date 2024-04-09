@@ -4,6 +4,7 @@ Crear un bucket de S3 con toda la configuración en predeterminado menos el nomb
 ## Desactivar el Block public access (en la pestaña Permissions)
 
 ## Añadir el Bucket Policy (en la pestaña Permissions)
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -16,6 +17,7 @@ Crear un bucket de S3 con toda la configuración en predeterminado menos el nomb
         }
     ]
 }
+```
 
 IMPORTANTE MODIFICAR EL "RESOURCE" AL NOMBRE DEL BUCKET
 
@@ -23,6 +25,7 @@ IMPORTANTE MODIFICAR EL "RESOURCE" AL NOMBRE DEL BUCKET
 Poner index.html tanto en "Index document" como en "Error document - optional"
 
 En "Redirection rules – optional" pondremos el siguiente JSON modificando el HostName con el nombre de nuestro Bucket
+```
 [
     {
         "Condition": {
@@ -35,3 +38,4 @@ En "Redirection rules – optional" pondremos el siguiente JSON modificando el H
         }
     }
 ]
+```
